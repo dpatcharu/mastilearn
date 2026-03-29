@@ -3,25 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms & Conditions | MastiLearn</title>
-  <link rel="icon" type="image/png" href="logo.png" />
+  <title>Privacy Policy | MastiLearn</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
 
   <style>
     :root {
       --bg: #07090d;
+      --bg-soft: #0d1117;
       --panel: rgba(255, 255, 255, 0.04);
+      --panel-strong: rgba(255, 255, 255, 0.07);
       --border: rgba(255, 255, 255, 0.09);
       --text: #f5f7fb;
       --muted: #97a3b6;
+      --muted-2: #748196;
       --accent: #9ec5ff;
+      --accent-strong: #ffffff;
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
       --radius-xl: 28px;
       --radius-lg: 20px;
-      --max: 920px;
+      --radius-md: 14px;
+      --max: 1180px;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -36,151 +45,392 @@
       overflow-x: hidden;
     }
 
+    .noise,
+    .grid,
+    .glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.22), transparent 70%);
+      opacity: 0.25;
+    }
+
+    .noise {
+      opacity: 0.05;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+      background-size: 10px 10px;
+      mix-blend-mode: soft-light;
+    }
+
+    .glow::before,
+    .glow::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(80px);
+      opacity: 0.14;
+      animation: float 14s ease-in-out infinite;
+    }
+
+    .glow::before {
+      width: 260px;
+      height: 260px;
+      background: #5e8cff;
+      top: 80px;
+      left: 8%;
+    }
+
+    .glow::after {
+      width: 320px;
+      height: 320px;
+      background: #ffffff;
+      top: 120px;
+      right: 10%;
+      animation-delay: -6s;
+    }
+
     .wrap {
-      width: min(calc(100% - 32px), var(--max));
+      width: min(calc(100% - 40px), var(--max));
       margin: 0 auto;
-      padding: 32px 0 60px;
+      position: relative;
+      z-index: 1;
     }
 
-    .topbar {
-      margin-bottom: 24px;
+    header {
+      padding: 24px 0 0;
+      animation: fadeUp 0.8s ease both;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
     }
 
-    .back-link {
-      display: inline-flex;
+    .nav {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--accent);
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links,
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .link {
+      color: var(--muted);
       text-decoration: none;
       font-size: 14px;
+      transition: color 0.2s ease;
     }
 
-    .back-link:hover {
-      text-decoration: underline;
+    .link:hover {
+      color: var(--text);
     }
 
-    .card {
+    .btn-secondary {
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+
+    .legal-main {
+      padding: 56px 0 72px;
+      animation: fadeUp 0.95s ease 0.08s both;
+    }
+
+    .legal-card {
+      max-width: 920px;
+      margin: 0 auto;
+      position: relative;
       border-radius: var(--radius-xl);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      backdrop-filter: blur(16px);
       box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
-      padding: 36px;
+      overflow: hidden;
+      padding: 34px;
+    }
+
+    .legal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(158, 197, 255, 0.18);
+      background: rgba(255,255,255,0.03);
+      color: #c9dbff;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #cfe0ff;
+      box-shadow: 0 0 14px rgba(207, 224, 255, 0.75);
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(34px, 5vw, 52px);
-      line-height: 1;
-      letter-spacing: -0.04em;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 760;
     }
 
     .updated {
+      margin: 16px 0 0;
       color: var(--muted);
       font-size: 14px;
-      margin-bottom: 28px;
     }
 
-    h2 {
-      margin-top: 32px;
-      margin-bottom: 12px;
-      font-size: 24px;
-      letter-spacing: -0.02em;
-    }
-
-    p, li {
-      color: var(--text);
-      line-height: 1.8;
+    .intro {
+      margin: 24px 0 0;
       font-size: 17px;
-    }
-
-    p {
-      margin: 0 0 14px;
-    }
-
-    .muted {
+      line-height: 1.8;
       color: var(--muted);
     }
 
-    .contact-box {
-      margin-top: 28px;
-      padding: 18px 20px;
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      border: 1px solid var(--border);
+    .legal-section {
+      margin-top: 30px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    .contact-box a {
-      color: var(--accent);
+    .legal-section h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .legal-section p,
+    .legal-section li {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    .legal-section ul {
+      margin: 12px 0 0 18px;
+      padding: 0;
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    footer a {
+      color: #9ec5ff;
       text-decoration: none;
+      margin: 0 5px;
     }
 
-    .contact-box a:hover {
-      text-decoration: underline;
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-16px) scale(1.04);
+      }
     }
 
     @media (max-width: 720px) {
-      .card {
-        padding: 24px;
+      .wrap {
+        width: min(calc(100% - 24px), var(--max));
       }
 
-      p, li {
-        font-size: 16px;
+      .nav {
+        padding: 12px 14px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-actions {
+        flex-wrap: wrap;
+      }
+
+      .btn-secondary {
+        width: 100%;
+      }
+
+      .legal-card {
+        padding: 24px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="glow"></div>
+  <div class="grid"></div>
+  <div class="noise"></div>
+
   <div class="wrap">
-    <div class="topbar">
-      <a class="back-link" href="index.html">← Back to MastiLearn</a>
-    </div>
+    <header>
+      <div class="nav">
+        <a class="brand" href="/index.html">
+          <img src="/logo.png" alt="MastiLearn Logo" class="logo-img" />
+          <span>MastiLearn</span>
+        </a>
 
-    <div class="card">
-      <h1>Terms & Conditions</h1>
-      <div class="updated">Last updated: 2026</div>
+        <div class="nav-links">
+          <a class="link" href="/index.html#demos">Demos</a>
+          <a class="link" href="/index.html#how-it-works">How it works</a>
+          <a class="link" href="/index.html#pricing">Pricing</a>
+        </div>
 
-      <p class="muted">
-        These Terms & Conditions govern your use of MastiLearn’s website and services.
-      </p>
-
-      <h2>Services</h2>
-      <p>
-        MastiLearn provides website creation, hosting, maintenance, and support services for small businesses.
-      </p>
-
-      <h2>Payments</h2>
-      <p>
-        Services are billed on a subscription basis unless otherwise agreed. Payments must be made on time to continue service.
-      </p>
-
-      <h2>Client Responsibility</h2>
-      <p>
-        Clients are responsible for providing accurate business information, content, images, and other materials required for website setup and updates.
-      </p>
-
-      <h2>Service Limitations</h2>
-      <p>
-        While we aim to provide reliable and professional service, we do not guarantee specific business growth, traffic levels, leads, or customer acquisition results.
-      </p>
-
-      <h2>Termination</h2>
-      <p>
-        We reserve the right to suspend or terminate services in cases of misuse, abuse, or non-payment.
-      </p>
-
-      <h2>Liability</h2>
-      <p>
-        MastiLearn is not liable for indirect, incidental, or business-related losses, including lost revenue, lost profits, or interruptions arising from use of our services.
-      </p>
-
-      <div class="contact-box">
-        <strong>Contact</strong>
-        <p style="margin-top:10px; margin-bottom:0;">
-          For questions about these Terms & Conditions, contact us at
-          <a href="mailto:dpatcharu@gmail.com">dpatcharu@gmail.com</a>.
-        </p>
+        <div class="nav-actions">
+          <a class="link" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">Contact</a>
+          <a class="btn-secondary" href="/index.html#pricing">See Plans</a>
+        </div>
       </div>
-    </div>
+    </header>
+
+    <main class="legal-main">
+      <div class="legal-card">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Legal
+        </div>
+
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: 2026</p>
+        <p class="intro">
+          MastiLearn values your privacy. This Privacy Policy explains how we collect, use, and protect your information when you contact us or use our website services.
+        </p>
+
+        <section class="legal-section">
+          <h2>Information We Collect</h2>
+          <p>
+            We may collect personal information such as your name, email address, phone number, and business details when you contact us, request a demo, or use our services.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>How We Use Information</h2>
+          <p>We use your information to:</p>
+          <ul>
+            <li>Provide website design, hosting, and support services</li>
+            <li>Respond to inquiries and service requests</li>
+            <li>Improve our website and customer experience</li>
+          </ul>
+        </section>
+
+        <section class="legal-section">
+          <h2>Data Sharing</h2>
+          <p>
+            We do not sell, trade, rent, or share your personal information with third parties except where required to provide our services or comply with legal obligations.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Data Security</h2>
+          <p>
+            We take reasonable measures to protect your information from unauthorized access, misuse, or disclosure.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Your Information</h2>
+          <p>
+            If you would like to update or remove information you have shared with us, you may contact us directly.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Contact</h2>
+          <p>
+            If you have questions about this Privacy Policy, contact us at:
+            <a href="mailto:dpatcharu@gmail.com" style="color:#9ec5ff; text-decoration:none;">dpatcharu@gmail.com</a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      © 2026 MastiLearn. Websites for small businesses.
+
+      <br /><br />
+
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms & Conditions</a>
+    </footer>
   </div>
 </body>
 </html>
