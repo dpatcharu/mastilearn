@@ -1,61 +1,760 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MastiLearn</title>
+  <style>
+    :root {
+      --bg: #07090d;
+      --bg-soft: #0d1117;
+      --panel: rgba(255, 255, 255, 0.04);
+      --panel-strong: rgba(255, 255, 255, 0.07);
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f5f7fb;
+      --muted: #97a3b6;
+      --muted-2: #748196;
+      --accent: #9ec5ff;
+      --accent-strong: #ffffff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(85, 130, 255, 0.14), transparent 0 28%),
+        radial-gradient(circle at 85% 18%, rgba(255, 255, 255, 0.07), transparent 0 22%),
+        linear-gradient(180deg, #05070a 0%, #0a0d12 55%, #07090d 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .noise,
+    .grid,
+    .glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.22), transparent 70%);
+      opacity: 0.25;
+    }
+
+    .noise {
+      opacity: 0.05;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+      background-size: 10px 10px;
+      mix-blend-mode: soft-light;
+    }
+
+    .glow::before,
+    .glow::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(80px);
+      opacity: 0.14;
+      animation: float 14s ease-in-out infinite;
+    }
+
+    .glow::before {
+      width: 260px;
+      height: 260px;
+      background: #5e8cff;
+      top: 80px;
+      left: 8%;
+    }
+
+    .glow::after {
+      width: 320px;
+      height: 320px;
+      background: #ffffff;
+      top: 120px;
+      right: 10%;
+      animation-delay: -6s;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      padding: 24px 0 0;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffffff, #8eb5ff);
+      box-shadow: 0 0 20px rgba(158, 197, 255, 0.45);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .link:hover {
+      color: var(--text);
+    }
+
+    .btn,
+    .btn-secondary {
+      appearance: none;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn {
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #f8fbff 0%, #d8e7ff 100%);
+      color: #09111f;
+      font-weight: 700;
+      box-shadow:
+        0 10px 30px rgba(120, 160, 255, 0.18),
+        inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 16px 34px rgba(120, 160, 255, 0.22),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+
+    .btn-secondary {
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      min-height: calc(100vh - 110px);
+      padding: 56px 0 72px;
+    }
+
+    .hero-copy {
+      animation: fadeUp 0.95s ease 0.08s both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(158, 197, 255, 0.18);
+      background: rgba(255,255,255,0.03);
+      color: #c9dbff;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #cfe0ff;
+      box-shadow: 0 0 14px rgba(207, 224, 255, 0.75);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(46px, 7vw, 88px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 750;
+      max-width: 760px;
+    }
+
+    .headline-soft {
+      display: block;
+      color: #b5bfd0;
+      font-weight: 500;
+    }
+
+    .sub {
+      margin: 24px 0 0;
+      max-width: 640px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      color: var(--muted-2);
+      font-size: 14px;
+    }
+
+    .meta span {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .meta span::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.35);
+    }
+
+    .hero-panel {
+      animation: fadeUp 1s ease 0.18s both;
+      position: relative;
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    }
+
+    .mock {
+      padding: 22px;
+    }
+
+    .mock-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .mock-title {
+      font-size: 14px;
+      color: #dbe7ff;
+      letter-spacing: 0.01em;
+    }
+
+    .mock-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d3def5;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mock-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #9ec5ff;
+      box-shadow: 0 0 12px rgba(158, 197, 255, 0.8);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    .resume-card {
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(158,197,255,0.16), transparent 0 30%),
+        rgba(5, 8, 13, 0.72);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .resume-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .resume-role h3 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      font-weight: 650;
+    }
+
+    .resume-role p {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .score {
+      min-width: 88px;
+      text-align: center;
+      padding: 12px 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .score strong {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .score span {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 22px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 42px;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .bar-track {
+      position: relative;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #dfe9ff, #8fb8ff);
+      transform-origin: left center;
+      animation: loadBar 1.4s ease both;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d8e4fb;
+      font-size: 12px;
+    }
+
+    .bottom-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .mini {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mini-label {
+      color: var(--muted-2);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .mini-value {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .section {
+      padding: 0 0 80px;
+      animation: fadeUp 0.9s ease 0.3s both;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.16);
+      background: var(--panel-strong);
+    }
+
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-16px) scale(1.04);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.9;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.18);
+      }
+    }
+
+    @keyframes loadBar {
+      from {
+        transform: scaleX(0.18);
+        opacity: 0.45;
+      }
+      to {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 42px;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      .nav {
+        padding: 12px 14px;
+      }
+
+      .nav-actions .link {
+        display: none;
+      }
+
+      .hero-actions,
+      .nav-actions {
+        flex-wrap: wrap;
+      }
+
+      .btn,
+      .btn-secondary {
+        width: 100%;
+      }
+
+      .sub {
+        font-size: 16px;
+      }
+
+      .bottom-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .score {
+        min-width: 76px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
+<body>
+  <div class="glow"></div>
+  <div class="grid"></div>
+  <div class="noise"></div>
 
-<body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;background:#111;color:#fff;">
+  <div class="wrap">
+    <header>
+      <div class="nav">
+        <a class="brand" href="#">
+          <span class="brand-mark"></span>
+          <span>MastiLearn</span>
+        </a>
+        <div class="nav-actions">
+          <a class="link" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Early%20Access&body=Hi,%20I%20want%20early%20access%20to%20MastiLearn.">Contact</a>
+          <a class="btn-secondary" href="https://docs.google.com/forms/d/e/1FAIpQLSc0IvHvRjaZyngj8EEm0sBit2PNgZXEL-E6zXo1vsQGllmREA/viewform">Join waitlist</a>
+        </div>
+      </div>
+    </header>
 
-  <div style="text-align:center;max-width:700px;padding:20px;">
-    
-    <h1 style="color:#facc15;font-size:42px;margin-bottom:10px;">
-      MastiLearn 🚀
-    </h1>
+    <main class="hero">
+      <section class="hero-copy">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Early access for modern job seekers
+        </div>
 
-    <h2 style="font-weight:normal;font-size:22px;margin-bottom:20px;">
-      Land more interviews with AI-powered resumes
-    </h2>
+        <h1>
+          Career tools,
+          <span class="headline-soft">designed with clarity.</span>
+        </h1>
 
-    <p style="color:#ccc;margin-bottom:25px;font-size:16px;">
-      Generate ATS-friendly resumes, tailored job applications, and interview answers in minutes.
-    </p>
+        <p class="sub">
+          Build stronger resumes, tailor applications faster, and prepare for interviews with a focused workflow that feels polished, credible, and efficient.
+        </p>
 
-    <!-- CTA BUTTON -->
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0IvHvRjaZyngj8EEm0sBit2PNgZXEL-E6zXo1vsQGllmREA/viewform?usp=dialog" 
-       style="background:#facc15;color:#000;padding:14px 28px;text-decoration:none;font-weight:bold;border-radius:8px;display:inline-block;margin-bottom:20px;font-size:16px;">
-      Get Early Access
-    </a>
+        <div class="hero-actions">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSc0IvHvRjaZyngj8EEm0sBit2PNgZXEL-E6zXo1vsQGllmREA/viewform">
+            Get early access
+          </a>
+          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Early%20Access&body=Hi,%20I%20want%20early%20access%20to%20MastiLearn.">
+            Email to join
+          </a>
+        </div>
 
-    <br/>
+        <div class="meta">
+          <span>Resume tailoring</span>
+          <span>Interview preparation</span>
+          <span>ATS optimization</span>
+        </div>
+      </section>
 
-    <!-- EMAIL FALLBACK -->
-<a href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Early%20Access&body=Hi,%20I%20want%20early%20access%20to%20MastiLearn."
-   style="color:#facc15;text-decoration:none;font-size:14px;">
-  Or email us to join →
-</a>
+      <section class="hero-panel">
+        <div class="panel">
+          <div class="mock">
+            <div class="mock-top">
+              <div class="mock-title">Preview</div>
+              <div class="mock-status">Active workflow</div>
+            </div>
 
-    <!-- FEATURES -->
-    <div style="margin-top:40px;text-align:left;">
-      
-      <p style="color:#facc15;font-weight:bold;margin-bottom:10px;">
-        What you’ll get:
-      </p>
+            <div class="resume-card">
+              <div class="resume-head">
+                <div class="resume-role">
+                  <h3>Application readiness</h3>
+                  <p>Resume matched against target role</p>
+                </div>
+                <div class="score">
+                  <strong>92</strong>
+                  <span>match score</span>
+                </div>
+              </div>
 
-      <ul style="color:#ccc;line-height:1.8;padding-left:20px;">
-        <li>✅ AI-generated resumes tailored to job descriptions</li>
-        <li>✅ Interview questions & answers for your role</li>
-        <li>✅ Resume optimization for ATS systems</li>
-        <li>✅ Faster job application process</li>
-      </ul>
+              <div class="bars">
+                <div class="bar-row">
+                  <span>Keywords</span>
+                  <div class="bar-track"><div class="bar-fill" style="width: 94%;"></div></div>
+                  <span>94%</span>
+                </div>
+                <div class="bar-row">
+                  <span>Structure</span>
+                  <div class="bar-track"><div class="bar-fill" style="width: 89%; animation-delay: 0.08s;"></div></div>
+                  <span>89%</span>
+                </div>
+                <div class="bar-row">
+                  <span>Clarity</span>
+                  <div class="bar-track"><div class="bar-fill" style="width: 91%; animation-delay: 0.16s;"></div></div>
+                  <span>91%</span>
+                </div>
+              </div>
 
-    </div>
+              <div class="chips">
+                <span class="chip">Tailored bullets</span>
+                <span class="chip">Role-specific phrasing</span>
+                <span class="chip">Interview prompts</span>
+              </div>
 
-    <!-- FOOTER NOTE -->
-    <p style="font-size:13px;color:#777;margin-top:30px;">
-      🚀 Launching soon — limited early users
-    </p>
+              <div class="bottom-strip">
+                <div class="mini">
+                  <div class="mini-label">Resume</div>
+                  <div class="mini-value">Optimized for screening</div>
+                </div>
+                <div class="mini">
+                  <div class="mini-label">Interview</div>
+                  <div class="mini-value">Role-based question set</div>
+                </div>
+                <div class="mini">
+                  <div class="mini-label">Workflow</div>
+                  <div class="mini-value">Faster application cycle</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
+    <section class="section">
+      <div class="section-grid">
+        <div class="card">
+          <h4>Tailored resumes</h4>
+          <p>Adapt your resume to specific roles without rewriting everything from scratch each time.</p>
+        </div>
+        <div class="card">
+          <h4>Sharper interview prep</h4>
+          <p>Generate focused practice material aligned to your role, experience, and target position.</p>
+        </div>
+        <div class="card">
+          <h4>Professional output</h4>
+          <p>A cleaner, more credible workflow built for candidates who want better results with less friction.</p>
+        </div>
+      </div>
+    </section>
   </div>
-
 </body>
 </html>
