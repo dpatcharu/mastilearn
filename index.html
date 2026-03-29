@@ -790,6 +790,11 @@
         scroll-behavior: auto !important;
       }
     }
+        .logo-img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
   </style>
 </head>
 <body>
@@ -800,10 +805,9 @@
   <div class="wrap">
     <header>
       <div class="nav">
-        <a class="brand" href="#">
-          <span class="brand-mark"></span>
-          <span>MastiLearn</span>
-        </a>
+      <a class="brand" href="#">
+        <img src="/logo.png" alt="MastiLearn Logo" class="logo-img" />
+      </a>
 
         <div class="nav-links">
           <a class="link" href="#demos">Demos</a>
