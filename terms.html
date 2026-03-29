@@ -2,35 +2,185 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Terms & Conditions | MastiLearn</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <style>
+    :root {
+      --bg: #07090d;
+      --panel: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f5f7fb;
+      --muted: #97a3b6;
+      --accent: #9ec5ff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --max: 920px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(85, 130, 255, 0.14), transparent 0 28%),
+        radial-gradient(circle at 85% 18%, rgba(255, 255, 255, 0.07), transparent 0 22%),
+        linear-gradient(180deg, #05070a 0%, #0a0d12 55%, #07090d 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    .topbar {
+      margin-bottom: 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
+      padding: 36px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    p, li {
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .contact-box {
+      margin-top: 28px;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border: 1px solid var(--border);
+    }
+
+    .contact-box a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .card {
+        padding: 24px;
+      }
+
+      p, li {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial; padding: 40px; background:#0a0d12; color:#fff;">
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back-link" href="index.html">← Back to MastiLearn</a>
+    </div>
 
-<h1>Terms & Conditions</h1>
+    <div class="card">
+      <h1>Terms & Conditions</h1>
+      <div class="updated">Last updated: 2026</div>
 
-<p>Last updated: 2026</p>
+      <p class="muted">
+        These Terms & Conditions govern your use of MastiLearn’s website and services.
+      </p>
 
-<h2>Services</h2>
-<p>MastiLearn provides website creation, hosting, and support services for small businesses.</p>
+      <h2>Services</h2>
+      <p>
+        MastiLearn provides website creation, hosting, maintenance, and support services for small businesses.
+      </p>
 
-<h2>Payments</h2>
-<p>All services are billed on a subscription basis. Payments must be made on time to continue service.</p>
+      <h2>Payments</h2>
+      <p>
+        Services are billed on a subscription basis unless otherwise agreed. Payments must be made on time to continue service.
+      </p>
 
-<h2>Client Responsibility</h2>
-<p>Clients are responsible for providing accurate business information and content.</p>
+      <h2>Client Responsibility</h2>
+      <p>
+        Clients are responsible for providing accurate business information, content, images, and other materials required for website setup and updates.
+      </p>
 
-<h2>Service Limitations</h2>
-<p>We do not guarantee business growth, traffic, or customer acquisition results.</p>
+      <h2>Service Limitations</h2>
+      <p>
+        While we aim to provide reliable and professional service, we do not guarantee specific business growth, traffic levels, leads, or customer acquisition results.
+      </p>
 
-<h2>Termination</h2>
-<p>We reserve the right to terminate services for misuse or non-payment.</p>
+      <h2>Termination</h2>
+      <p>
+        We reserve the right to suspend or terminate services in cases of misuse, abuse, or non-payment.
+      </p>
 
-<h2>Liability</h2>
-<p>MastiLearn is not liable for any business losses, damages, or interruptions.</p>
+      <h2>Liability</h2>
+      <p>
+        MastiLearn is not liable for indirect, incidental, or business-related losses, including lost revenue, lost profits, or interruptions arising from use of our services.
+      </p>
 
-<h2>Contact</h2>
-<p>Contact us at: dpatcharu@gmail.com</p>
-
+      <div class="contact-box">
+        <strong>Contact</strong>
+        <p style="margin-top:10px; margin-bottom:0;">
+          For questions about these Terms & Conditions, contact us at
+          <a href="mailto:dpatcharu@gmail.com">dpatcharu@gmail.com</a>.
+        </p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
