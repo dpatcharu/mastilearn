@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MastiLearn | Websites for Small Businesses</title>
+  <title>Privacy Policy | MastiLearn</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
   <style>
     :root {
       --bg: #07090d;
@@ -133,12 +135,11 @@
       text-decoration: none;
     }
 
-    .brand-mark {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ffffff, #8eb5ff);
-      box-shadow: 0 0 20px rgba(158, 197, 255, 0.45);
+    .logo-img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+      display: block;
     }
 
     .nav-links,
@@ -159,36 +160,6 @@
       color: var(--text);
     }
 
-    .btn,
-    .btn-secondary {
-      appearance: none;
-      border: none;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .btn {
-      min-height: 50px;
-      padding: 0 20px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, #f8fbff 0%, #d8e7ff 100%);
-      color: #09111f;
-      font-weight: 700;
-      box-shadow:
-        0 10px 30px rgba(120, 160, 255, 0.18),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-    }
-
-    .btn:hover,
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-    }
-
     .btn-secondary {
       min-height: 50px;
       padding: 0 18px;
@@ -197,19 +168,44 @@
       background: rgba(255,255,255,0.03);
       color: var(--text);
       font-weight: 600;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 28px;
+      text-decoration: none;
+      display: inline-flex;
       align-items: center;
-      min-height: calc(100vh - 110px);
-      padding: 56px 0 72px;
+      justify-content: center;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
-    .hero-copy {
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+
+    .legal-main {
+      padding: 56px 0 72px;
       animation: fadeUp 0.95s ease 0.08s both;
+    }
+
+    .legal-card {
+      max-width: 920px;
+      margin: 0 auto;
+      position: relative;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+      padding: 34px;
+    }
+
+    .legal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
     }
 
     .eyebrow {
@@ -224,7 +220,7 @@
       color: #c9dbff;
       font-size: 13px;
       letter-spacing: 0.01em;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .eyebrow-dot {
@@ -237,444 +233,48 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(44px, 7vw, 82px);
+      font-size: clamp(34px, 5vw, 56px);
       line-height: 0.95;
-      letter-spacing: -0.06em;
-      font-weight: 760;
-      max-width: 760px;
-    }
-
-    .headline-soft {
-      display: block;
-      color: #b5bfd0;
-      font-weight: 500;
-    }
-
-    .sub {
-      margin: 24px 0 0;
-      max-width: 640px;
-      font-size: 18px;
-      line-height: 1.75;
-      color: var(--muted);
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .meta {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      color: var(--muted-2);
-      font-size: 14px;
-    }
-
-    .meta span {
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .meta span::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.35);
-    }
-
-    .hero-panel {
-      animation: fadeUp 1s ease 0.18s both;
-      position: relative;
-    }
-
-    .panel {
-      position: relative;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    }
-
-    .mock {
-      padding: 22px;
-    }
-
-    .mock-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-
-    .mock-title {
-      font-size: 14px;
-      color: #dbe7ff;
-      letter-spacing: 0.01em;
-    }
-
-    .mock-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #d3def5;
-      font-size: 12px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mock-status::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #9ec5ff;
-      box-shadow: 0 0 12px rgba(158, 197, 255, 0.8);
-      animation: pulse 2.2s ease-in-out infinite;
-    }
-
-    .dashboard-card {
-      border-radius: 22px;
-      padding: 22px;
-      background:
-        radial-gradient(circle at top right, rgba(158,197,255,0.16), transparent 0 30%),
-        rgba(5, 8, 13, 0.72);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .dashboard-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .dashboard-role h3 {
-      margin: 0;
-      font-size: 21px;
-      letter-spacing: -0.03em;
-      font-weight: 650;
-    }
-
-    .dashboard-role p {
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .score {
-      min-width: 96px;
-      text-align: center;
-      padding: 12px 10px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .score strong {
-      display: block;
-      font-size: 24px;
-      letter-spacing: -0.04em;
-    }
-
-    .score span {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .bars {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 22px;
-    }
-
-    .bar-row {
-      display: grid;
-      grid-template-columns: 110px 1fr 42px;
-      gap: 12px;
-      align-items: center;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .bar-track {
-      position: relative;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #dfe9ff, #8fb8ff);
-      transform-origin: left center;
-      animation: loadBar 1.4s ease both;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip {
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #d8e4fb;
-      font-size: 12px;
-    }
-
-    .bottom-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .mini {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mini-label {
-      color: var(--muted-2);
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-
-    .mini-value {
-      font-size: 15px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .section {
-      padding: 0 0 84px;
-      animation: fadeUp 0.9s ease 0.3s both;
-    }
-
-    .section-title {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 42px);
-      letter-spacing: -0.04em;
-    }
-
-    .section-sub {
-      max-width: 720px;
-      margin: 0 0 28px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 16px;
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      padding: 24px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,255,255,0.16);
-      background: var(--panel-strong);
-    }
-
-    .card h4 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .demo-card {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .demo-preview {
-      min-height: 180px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .demo-topbar {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.25);
-    }
-
-    .demo-box {
-      height: 18px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.09);
-      width: 70%;
-    }
-
-    .demo-box.small {
-      width: 45%;
-      height: 12px;
-    }
-
-    .demo-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .demo-tile {
-      height: 52px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .step-number {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(158, 197, 255, 0.14);
-      border: 1px solid rgba(158, 197, 255, 0.22);
-      color: #d9e6ff;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .price-card {
-      padding: 26px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-    }
-
-    .price-card.featured {
-      background: linear-gradient(180deg, rgba(158,197,255,0.11), rgba(255,255,255,0.04));
-      border-color: rgba(158,197,255,0.28);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.25);
-    }
-
-    .price-name {
-      font-size: 16px;
-      color: #dbe7ff;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .price-amount {
-      font-size: 38px;
-      font-weight: 800;
       letter-spacing: -0.05em;
-      margin-bottom: 6px;
+      font-weight: 760;
     }
 
-    .price-amount span {
-      font-size: 15px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .price-sub {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .price-list {
-      display: grid;
-      gap: 10px;
+    .updated {
+      margin: 16px 0 0;
       color: var(--muted);
       font-size: 14px;
-      margin-bottom: 22px;
     }
 
-    .price-list div::before {
-      content: "•";
-      color: #cfe0ff;
-      margin-right: 8px;
+    .intro {
+      margin: 24px 0 0;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--muted);
     }
 
-    .cta-panel {
-      padding: 30px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+    .legal-section {
+      margin-top: 30px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .legal-section h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .legal-section p,
+    .legal-section li {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    .legal-section ul {
+      margin: 12px 0 0 18px;
+      padding: 0;
     }
 
     footer {
@@ -682,11 +282,13 @@
       text-align: center;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
+
     footer a {
       color: #9ec5ff;
       text-decoration: none;
       margin: 0 5px;
     }
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -707,41 +309,6 @@
       }
     }
 
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.9;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.18);
-      }
-    }
-
-    @keyframes loadBar {
-      from {
-        transform: scaleX(0.18);
-        opacity: 0.45;
-      }
-      to {
-        transform: scaleX(1);
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .section-grid,
-      .steps,
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 42px;
-      }
-    }
-
     @media (max-width: 720px) {
       .wrap {
         width: min(calc(100% - 24px), var(--max));
@@ -755,51 +322,18 @@
         display: none;
       }
 
-      .hero-actions,
       .nav-actions {
         flex-wrap: wrap;
       }
 
-      .btn,
       .btn-secondary {
         width: 100%;
       }
 
-      .sub {
-        font-size: 16px;
-      }
-
-      .bottom-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .bar-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .score {
-        min-width: 76px;
-      }
-
-      .cta-panel {
-        align-items: flex-start;
+      .legal-card {
+        padding: 24px;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-.logo-img {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
   </style>
 </head>
 <body>
@@ -810,309 +344,93 @@
   <div class="wrap">
     <header>
       <div class="nav">
-      <a class="brand" href="#">
-        <img src="/logo.png" alt="MastiLearn Logo" class="logo-img" />
-        <span>MastiLearn</span>
-      </a>
+        <a class="brand" href="/index.html">
+          <img src="/logo.png" alt="MastiLearn Logo" class="logo-img" />
+          <span>MastiLearn</span>
+        </a>
 
         <div class="nav-links">
-          <a class="link" href="#demos">Demos</a>
-          <a class="link" href="#how-it-works">How it works</a>
-          <a class="link" href="#pricing">Pricing</a>
+          <a class="link" href="/index.html#demos">Demos</a>
+          <a class="link" href="/index.html#how-it-works">How it works</a>
+          <a class="link" href="/index.html#pricing">Pricing</a>
         </div>
 
         <div class="nav-actions">
           <a class="link" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">Contact</a>
-          <a class="btn-secondary" href="#pricing">See Plans</a>
+          <a class="btn-secondary" href="/index.html#pricing">See Plans</a>
         </div>
       </div>
     </header>
 
-    <main class="hero">
-      <section class="hero-copy">
+    <main class="legal-main">
+      <div class="legal-card">
         <div class="eyebrow">
           <span class="eyebrow-dot"></span>
-          Websites for small businesses
+          Legal
         </div>
 
-        <h1>
-          Get a professional website
-          <span class="headline-soft">that helps grow your business.</span>
-        </h1>
-
-        <p class="sub">
-          We build, host, and manage websites for small businesses so you can focus on serving customers, not dealing with tech. Pick a design, share your details, and go live fast.
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: 2026</p>
+        <p class="intro">
+          MastiLearn values your privacy. This Privacy Policy explains how we collect, use, and protect your information when you contact us or use our website services.
         </p>
 
-        <div class="hero-actions">
-          <a class="btn" href="#demos">See Demo Websites</a>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">
-            Get My Website
-          </a>
-        </div>
+        <section class="legal-section">
+          <h2>Information We Collect</h2>
+          <p>
+            We may collect personal information such as your name, email address, phone number, and business details when you contact us, request a demo, or use our services.
+          </p>
+        </section>
 
-        <div class="meta">
-          <span>Done-for-you websites</span>
-          <span>Hosting & support included</span>
-          <span>Optional domain setup</span>
-        </div>
-      </section>
+        <section class="legal-section">
+          <h2>How We Use Information</h2>
+          <p>We use your information to:</p>
+          <ul>
+            <li>Provide website design, hosting, and support services</li>
+            <li>Respond to inquiries and service requests</li>
+            <li>Improve our website and customer experience</li>
+          </ul>
+        </section>
 
-      <section class="hero-panel">
-        <div class="panel">
-          <div class="mock">
-            <div class="mock-top">
-              <div class="mock-title">Client dashboard preview</div>
-              <div class="mock-status">Live website</div>
-            </div>
+        <section class="legal-section">
+          <h2>Data Sharing</h2>
+          <p>
+            We do not sell, trade, rent, or share your personal information with third parties except where required to provide our services or comply with legal obligations.
+          </p>
+        </section>
 
-            <div class="dashboard-card">
-              <div class="dashboard-head">
-                <div class="dashboard-role">
-                  <h3>Business website performance</h3>
-                  <p>Simple monitoring for business owners</p>
-                </div>
-                <div class="score">
-                  <strong>18</strong>
-                  <span>new leads</span>
-                </div>
-              </div>
+        <section class="legal-section">
+          <h2>Data Security</h2>
+          <p>
+            We take reasonable measures to protect your information from unauthorized access, misuse, or disclosure.
+          </p>
+        </section>
 
-              <div class="bars">
-                <div class="bar-row">
-                  <span>Website visits</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
-                  <span>920</span>
-                </div>
-                <div class="bar-row">
-                  <span>Call clicks</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 68%; animation-delay: 0.08s;"></div></div>
-                  <span>68</span>
-                </div>
-                <div class="bar-row">
-                  <span>Form leads</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 54%; animation-delay: 0.16s;"></div></div>
-                  <span>18</span>
-                </div>
-              </div>
+        <section class="legal-section">
+          <h2>Your Information</h2>
+          <p>
+            If you would like to update or remove information you have shared with us, you may contact us directly.
+          </p>
+        </section>
 
-              <div class="chips">
-                <span class="chip">Mobile-friendly</span>
-                <span class="chip">Lead form included</span>
-                <span class="chip">Managed support</span>
-              </div>
-
-              <div class="bottom-strip">
-                <div class="mini">
-                  <div class="mini-label">Website</div>
-                  <div class="mini-value">Live and hosted</div>
-                </div>
-                <div class="mini">
-                  <div class="mini-label">Domain</div>
-                  <div class="mini-value">Connected for your brand</div>
-                </div>
-                <div class="mini">
-                  <div class="mini-label">Support</div>
-                  <div class="mini-value">Updates and maintenance</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <section class="legal-section">
+          <h2>Contact</h2>
+          <p>
+            If you have questions about this Privacy Policy, contact us at:
+            <a href="mailto:dpatcharu@gmail.com" style="color:#9ec5ff; text-decoration:none;">dpatcharu@gmail.com</a>
+          </p>
+        </section>
+      </div>
     </main>
 
-    <section class="section" id="demos">
-      <h2 class="section-title">Choose a style that fits your business</h2>
-      <p class="section-sub">
-        Start with a proven layout. We customize it for your business, add your content, and launch it under your brand.
-      </p>
+    <footer>
+      © 2026 MastiLearn. Websites for small businesses.
 
-      <div class="section-grid">
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Salon & beauty</h4>
-          <p>Show services, pricing, photos, hours, and contact details in a polished layout that builds trust quickly.</p>
-        </div>
+      <br /><br />
 
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Clinic & healthcare</h4>
-          <p>Present services, provider information, patient inquiries, and clinic contact details in a clean, reliable format.</p>
-        </div>
-
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Cleaning & local services</h4>
-          <p>Highlight service areas, quotes, testimonials, and contact actions so potential customers can reach you quickly.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="how-it-works">
-      <h2 class="section-title">How it works</h2>
-      <p class="section-sub">
-        Keep it simple. You choose a design you like, send us your business details, and we handle the rest.
-      </p>
-
-      <div class="steps">
-        <div class="card">
-          <div class="step-number">1</div>
-          <h4>Pick a website style</h4>
-          <p>Choose from ready-to-launch business website layouts tailored for real-world small business use cases.</p>
-        </div>
-
-        <div class="card">
-          <div class="step-number">2</div>
-          <h4>Share your business details</h4>
-          <p>Send your business name, services, contact details, photos, and anything else you want displayed on the site.</p>
-        </div>
-
-        <div class="card">
-          <div class="step-number">3</div>
-          <h4>Launch and grow</h4>
-          <p>We publish your website, help connect your domain, and provide ongoing support, maintenance, and updates.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">What’s included</h2>
-      <p class="section-sub">
-        MastiLearn is designed to remove the technical burden from small business owners and give them a professional online presence without the usual complexity.
-      </p>
-
-      <div class="section-grid">
-        <div class="card">
-          <h4>Done-for-you setup</h4>
-          <p>We handle the website setup, content placement, and launch flow so you do not need to worry about technical details.</p>
-        </div>
-        <div class="card">
-          <h4>Hosting and maintenance</h4>
-          <p>Your website stays online, secure, and updated with support included as part of your monthly plan.</p>
-        </div>
-        <div class="card">
-          <h4>Lead-focused pages</h4>
-          <p>Every website is built to make it easy for customers to call, message, or submit inquiries from any device.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing">
-      <h2 class="section-title">Simple monthly plans</h2>
-      <p class="section-sub">
-        Start with a professional website now, then scale with support, edits, and monitoring as your business grows.
-      </p>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div class="price-name">Starter</div>
-          <div class="price-amount">$15 <span>/ month</span></div>
-          <div class="price-sub">A simple online presence for businesses that want to get started quickly.</div>
-          <div class="price-list">
-            <div>Template-based website</div>
-            <div>MastiLearn subdomain</div>
-            <div>Mobile-friendly layout</div>
-            <div>Basic support</div>
-          </div>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Starter%20Plan">Choose Starter</a>
-        </div>
-
-        <div class="price-card featured">
-          <div class="price-name">Growth</div>
-          <div class="price-amount">$25 <span>/ month</span></div>
-          <div class="price-sub">Best for local businesses that want lead capture, updates, and a stronger online presence.</div>
-          <div class="price-list">
-            <div>Everything in Starter</div>
-            <div>Custom domain connection</div>
-            <div>Contact / lead form</div>
-            <div>Website updates</div>
-            <div>Basic SEO setup</div>
-          </div>
-          <a class="btn" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Growth%20Plan">Choose Growth</a>
-        </div>
-
-        <div class="price-card">
-          <div class="price-name">Pro</div>
-          <div class="price-amount">$49 <span>/ month</span></div>
-          <div class="price-sub">For businesses that want more support, faster changes, and simple visibility into website activity.</div>
-          <div class="price-list">
-            <div>Everything in Growth</div>
-            <div>Priority support</div>
-            <div>Monthly content edits</div>
-            <div>Basic monitoring dashboard</div>
-            <div>Analytics summary</div>
-          </div>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Pro%20Plan">Choose Pro</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="cta-panel">
-        <div>
-          <h2 class="section-title" style="margin-bottom: 8px;">Ready to launch your business website?</h2>
-          <p class="section-sub" style="margin: 0; max-width: 640px;">
-            Pick a design you like, send your details, and let MastiLearn handle the rest.
-          </p>
-        </div>
-
-        <div class="hero-actions" style="margin-top: 0;">
-          <a class="btn" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">
-            Get Started
-          </a>
-          <a class="btn-secondary" href="#demos">View Demos</a>
-        </div>
-      </div>
-    </section>
-
-<footer>
-  © 2026 MastiLearn. Websites for small businesses.
-
-  <br /><br />
-
-<a href="/privacy.html">Privacy Policy</a> |
-<a href="/terms.html">Terms & Conditions</a>
-</footer>
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms & Conditions</a>
+    </footer>
   </div>
 </body>
 </html>
