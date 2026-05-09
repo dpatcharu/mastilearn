@@ -3,49 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MastiLearn | Websites for Small Businesses</title>
+  <title>MastiLearn | Build Apps with AI Agents</title>
+  <meta name="description" content="MastiLearn helps developers, founders, and small teams create app ideas, UI screens, .NET MAUI code, APIs, databases, tests, and deployment plans using AI agents." />
+
   <style>
     :root {
-      --bg: #07090d;
-      --bg-soft: #0d1117;
-      --panel: rgba(255, 255, 255, 0.04);
-      --panel-strong: rgba(255, 255, 255, 0.07);
-      --border: rgba(255, 255, 255, 0.09);
-      --text: #f5f7fb;
-      --muted: #97a3b6;
-      --muted-2: #748196;
-      --accent: #9ec5ff;
-      --accent-strong: #ffffff;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
+      --bg: #05070c;
+      --bg-soft: #0a1020;
+      --panel: rgba(255, 255, 255, 0.055);
+      --panel-strong: rgba(255, 255, 255, 0.09);
+      --border: rgba(255, 255, 255, 0.105);
+      --border-strong: rgba(137, 199, 255, 0.32);
+      --text: #f6f9ff;
+      --muted: #a9b5c7;
+      --muted-2: #7e8aa0;
+      --blue: #7cc7ff;
+      --cyan: #67ffe0;
+      --violet: #b8a3ff;
+      --green: #8effc1;
+      --dark: #07101d;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.46);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 15px;
       --max: 1180px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 20%, rgba(85, 130, 255, 0.14), transparent 0 28%),
-        radial-gradient(circle at 85% 18%, rgba(255, 255, 255, 0.07), transparent 0 22%),
-        linear-gradient(180deg, #05070a 0%, #0a0d12 55%, #07090d 100%);
+        radial-gradient(circle at 14% 15%, rgba(124, 199, 255, 0.2), transparent 0 25%),
+        radial-gradient(circle at 80% 8%, rgba(103, 255, 224, 0.12), transparent 0 25%),
+        radial-gradient(circle at 78% 72%, rgba(184, 163, 255, 0.12), transparent 0 25%),
+        linear-gradient(180deg, #03050a 0%, #07101d 48%, #05070c 100%);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    .noise,
     .grid,
-    .glow {
+    .noise,
+    .orb-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -53,46 +55,45 @@
 
     .grid {
       background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.22), transparent 70%);
-      opacity: 0.25;
+        linear-gradient(rgba(255,255,255,0.034) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.034) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,0.24), transparent 72%);
+      opacity: 0.34;
     }
 
     .noise {
-      opacity: 0.05;
-      background-image:
-        radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+      opacity: 0.045;
+      background-image: radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
       background-size: 10px 10px;
       mix-blend-mode: soft-light;
     }
 
-    .glow::before,
-    .glow::after {
+    .orb-layer::before,
+    .orb-layer::after {
       content: "";
       position: absolute;
       border-radius: 999px;
-      filter: blur(80px);
-      opacity: 0.14;
-      animation: float 14s ease-in-out infinite;
+      filter: blur(90px);
+      opacity: 0.18;
+      animation: float 15s ease-in-out infinite;
     }
 
-    .glow::before {
-      width: 260px;
-      height: 260px;
-      background: #5e8cff;
-      top: 80px;
-      left: 8%;
+    .orb-layer::before {
+      width: 330px;
+      height: 330px;
+      background: var(--blue);
+      left: 4%;
+      top: 90px;
     }
 
-    .glow::after {
-      width: 320px;
-      height: 320px;
-      background: #ffffff;
-      top: 120px;
-      right: 10%;
-      animation-delay: -6s;
+    .orb-layer::after {
+      width: 360px;
+      height: 360px;
+      background: var(--cyan);
+      right: 4%;
+      top: 140px;
+      animation-delay: -7s;
     }
 
     .wrap {
@@ -104,11 +105,11 @@
 
     header {
       padding: 24px 0 0;
-      animation: fadeUp 0.8s ease both;
       position: sticky;
       top: 0;
-      z-index: 10;
-      backdrop-filter: blur(8px);
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      animation: fadeUp 0.75s ease both;
     }
 
     .nav {
@@ -116,29 +117,41 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      padding: 14px 18px;
+      padding: 14px 16px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-      border-radius: 18px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      background: rgba(4, 9, 18, 0.72);
+      border-radius: 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 18px 50px rgba(0,0,0,0.22);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      gap: 9px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
       color: var(--text);
       text-decoration: none;
     }
 
-    .brand-mark {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ffffff, #8eb5ff);
-      box-shadow: 0 0 20px rgba(158, 197, 255, 0.45);
+    .brand img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-fallback {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #02111e;
+      font-weight: 900;
+      box-shadow: 0 0 30px rgba(124,199,255,0.35);
     }
 
     .nav-links,
@@ -155,12 +168,11 @@
       transition: color 0.2s ease;
     }
 
-    .link:hover {
-      color: var(--text);
-    }
+    .link:hover { color: var(--text); }
 
     .btn,
-    .btn-secondary {
+    .btn-secondary,
+    .agent-button {
       appearance: none;
       border: none;
       text-decoration: none;
@@ -173,55 +185,52 @@
     }
 
     .btn {
-      min-height: 50px;
-      padding: 0 20px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, #f8fbff 0%, #d8e7ff 100%);
-      color: #09111f;
-      font-weight: 700;
-      box-shadow:
-        0 10px 30px rgba(120, 160, 255, 0.18),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-    }
-
-    .btn:hover,
-    .btn-secondary:hover {
-      transform: translateY(-1px);
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #e9f8ff 0%, #9fe8ff 44%, #80ffdf 100%);
+      color: #03101d;
+      font-weight: 850;
+      box-shadow: 0 16px 44px rgba(103, 255, 224, 0.16), inset 0 1px 0 rgba(255,255,255,0.9);
     }
 
     .btn-secondary {
-      min-height: 50px;
-      padding: 0 18px;
-      border-radius: 14px;
+      min-height: 52px;
+      padding: 0 20px;
+      border-radius: 16px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.045);
       color: var(--text);
-      font-weight: 600;
+      font-weight: 700;
+    }
+
+    .btn:hover,
+    .btn-secondary:hover,
+    .agent-button:hover {
+      transform: translateY(-2px);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 28px;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 30px;
       align-items: center;
       min-height: calc(100vh - 110px);
-      padding: 56px 0 72px;
+      padding: 64px 0 78px;
     }
 
-    .hero-copy {
-      animation: fadeUp 0.95s ease 0.08s both;
-    }
+    .hero-copy { animation: fadeUp 0.95s ease 0.08s both; }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      min-height: 34px;
+      min-height: 36px;
       padding: 0 14px;
       border-radius: 999px;
-      border: 1px solid rgba(158, 197, 255, 0.18);
-      background: rgba(255,255,255,0.03);
-      color: #c9dbff;
+      border: 1px solid rgba(124, 199, 255, 0.26);
+      background: rgba(124,199,255,0.07);
+      color: #d8f2ff;
       font-size: 13px;
       letter-spacing: 0.01em;
       margin-bottom: 22px;
@@ -231,28 +240,36 @@
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #cfe0ff;
-      box-shadow: 0 0 14px rgba(207, 224, 255, 0.75);
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(103, 255, 224, 0.85);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(44px, 7vw, 82px);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      font-weight: 760;
-      max-width: 760px;
+      font-size: clamp(44px, 7vw, 84px);
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      font-weight: 850;
+      max-width: 810px;
+    }
+
+    .gradient-text {
+      display: block;
+      background: linear-gradient(90deg, #f8fbff 0%, #aee8ff 42%, #87ffe3 78%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .headline-soft {
       display: block;
-      color: #b5bfd0;
-      font-weight: 500;
+      color: #bcc8da;
+      font-weight: 560;
     }
 
     .sub {
-      margin: 24px 0 0;
-      max-width: 640px;
+      margin: 25px 0 0;
+      max-width: 665px;
       font-size: 18px;
       line-height: 1.75;
       color: var(--muted);
@@ -263,12 +280,12 @@
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 30px;
+      margin-top: 31px;
     }
 
     .meta {
       display: flex;
-      gap: 22px;
+      gap: 20px;
       flex-wrap: wrap;
       margin-top: 28px;
       color: var(--muted-2);
@@ -288,7 +305,7 @@
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.35);
+      background: rgba(103, 255, 224, 0.72);
     }
 
     .hero-panel {
@@ -300,10 +317,9 @@
       position: relative;
       border-radius: var(--radius-xl);
       border: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.05);
+      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.03));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
       overflow: hidden;
     }
 
@@ -312,186 +328,187 @@
       position: absolute;
       inset: 0 0 auto 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(135,255,227,0.55), transparent);
     }
 
-    .mock {
+    .builder {
       padding: 22px;
     }
 
-    .mock-top {
+    .builder-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .mock-title {
+    .builder-title {
       font-size: 14px;
-      color: #dbe7ff;
+      color: #dff7ff;
       letter-spacing: 0.01em;
     }
 
-    .mock-status {
+    .builder-status {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: #d3def5;
+      color: #ddf6ff;
       font-size: 12px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .mock-status::before {
+    .builder-status::before {
       content: "";
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #9ec5ff;
-      box-shadow: 0 0 12px rgba(158, 197, 255, 0.8);
+      background: var(--cyan);
+      box-shadow: 0 0 14px rgba(103,255,224,0.9);
       animation: pulse 2.2s ease-in-out infinite;
     }
 
-    .dashboard-card {
-      border-radius: 22px;
-      padding: 22px;
+    .workspace {
+      border-radius: 24px;
+      padding: 20px;
       background:
-        radial-gradient(circle at top right, rgba(158,197,255,0.16), transparent 0 30%),
-        rgba(5, 8, 13, 0.72);
-      border: 1px solid rgba(255,255,255,0.08);
+        radial-gradient(circle at top right, rgba(103,255,224,0.12), transparent 0 30%),
+        rgba(4, 9, 18, 0.78);
+      border: 1px solid rgba(255,255,255,0.09);
     }
 
-    .dashboard-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .dashboard-role h3 {
-      margin: 0;
-      font-size: 21px;
-      letter-spacing: -0.03em;
-      font-weight: 650;
-    }
-
-    .dashboard-role p {
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .score {
-      min-width: 96px;
-      text-align: center;
-      padding: 12px 10px;
+    .prompt-box {
       border-radius: 18px;
+      padding: 16px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 14px;
     }
 
-    .score strong {
-      display: block;
-      font-size: 24px;
-      letter-spacing: -0.04em;
-    }
-
-    .score span {
-      font-size: 11px;
-      color: var(--muted);
+    .prompt-label {
+      color: var(--muted-2);
+      font-size: 12px;
+      margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
-    .bars {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 22px;
+    .prompt-text {
+      color: #edf8ff;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
-    .bar-row {
+    .agent-tabs {
       display: grid;
-      grid-template-columns: 110px 1fr 42px;
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .agent-pill {
+      padding: 10px 11px;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #dbe7fb;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .agent-pill.active {
+      border-color: rgba(103,255,224,0.28);
+      background: rgba(103,255,224,0.105);
+      color: #e8fffb;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .file-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      font-size: 13px;
-      color: var(--muted);
+      gap: 10px;
+      padding: 12px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.065);
     }
 
-    .bar-track {
-      position: relative;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
+    .file-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(124,199,255,0.12);
+      color: #bdeaff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .file-name {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .file-meta {
+      color: var(--muted-2);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .file-status {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .code-strip {
+      margin-top: 15px;
+      border-radius: 17px;
+      padding: 14px;
+      background: rgba(2, 6, 12, 0.78);
+      border: 1px solid rgba(255,255,255,0.065);
+      color: #96ffc9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.65;
       overflow: hidden;
     }
 
-    .bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #dfe9ff, #8fb8ff);
-      transform-origin: left center;
-      animation: loadBar 1.4s ease both;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip {
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #d8e4fb;
-      font-size: 12px;
-    }
-
-    .bottom-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .mini {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mini-label {
-      color: var(--muted-2);
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-
-    .mini-value {
-      font-size: 15px;
-      color: var(--text);
-      font-weight: 600;
-    }
-
     .section {
-      padding: 0 0 84px;
+      padding: 0 0 88px;
       animation: fadeUp 0.9s ease 0.3s both;
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 10px;
     }
 
     .section-title {
       margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 42px);
-      letter-spacing: -0.04em;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
     }
 
     .section-sub {
-      max-width: 720px;
-      margin: 0 0 28px;
+      max-width: 760px;
+      margin: 0 0 30px;
       color: var(--muted);
       line-height: 1.75;
       font-size: 16px;
@@ -505,23 +522,38 @@
 
     .card {
       padding: 24px;
-      border-radius: 22px;
+      border-radius: 23px;
       border: 1px solid var(--border);
       background: var(--panel);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
       transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(255,255,255,0.16);
+      border-color: rgba(103,255,224,0.22);
       background: var(--panel-strong);
     }
 
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, rgba(124,199,255,0.18), rgba(103,255,224,0.1));
+      border: 1px solid rgba(255,255,255,0.09);
+      color: #ddfbff;
+      font-size: 20px;
+    }
+
+    .card h3,
     .card h4 {
       margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.02em;
+      font-size: 19px;
+      letter-spacing: -0.025em;
     }
 
     .card p {
@@ -531,260 +563,240 @@
       color: var(--muted);
     }
 
-    .demo-card {
+    .agent-card {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      min-height: 100%;
     }
 
-    .demo-preview {
-      min-height: 180px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
+    .agent-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0 20px;
+      display: grid;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .agent-card li::before {
+      content: "✓";
+      color: var(--cyan);
+      margin-right: 8px;
+      font-weight: 900;
+    }
+
+    .agent-button {
+      min-height: 45px;
+      padding: 0 15px;
+      border-radius: 13px;
+      border: 1px solid rgba(103,255,224,0.18);
+      background: rgba(103,255,224,0.075);
+      color: #dffff8;
+      font-weight: 750;
+      margin-top: auto;
+    }
+
+    .feature-band {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .large-card {
+      padding: 28px;
+      border-radius: 26px;
+      border: 1px solid var(--border-strong);
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+        radial-gradient(circle at 0% 0%, rgba(103,255,224,0.12), transparent 0 34%),
+        linear-gradient(180deg, rgba(124,199,255,0.105), rgba(255,255,255,0.035));
+      box-shadow: var(--shadow);
     }
 
-    .demo-topbar {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.25);
-    }
-
-    .demo-box {
-      height: 18px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.09);
-      width: 70%;
-    }
-
-    .demo-box.small {
-      width: 45%;
-      height: 12px;
-    }
-
-    .demo-row {
+    .check-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
+      margin-top: 20px;
     }
 
-    .demo-tile {
-      height: 52px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 13px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
     }
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .check-item strong {
+      color: var(--text);
     }
 
-    .step-number {
-      width: 34px;
-      height: 34px;
+    .checkmark {
+      width: 22px;
+      height: 22px;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(158, 197, 255, 0.14);
-      border: 1px solid rgba(158, 197, 255, 0.22);
-      color: #d9e6ff;
+      background: rgba(103,255,224,0.12);
+      color: var(--cyan);
+      flex: 0 0 auto;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(124, 199, 255, 0.14);
+      border: 1px solid rgba(124, 199, 255, 0.24);
+      color: #dff6ff;
       margin-bottom: 14px;
-      font-weight: 700;
+      font-weight: 850;
     }
 
-    .pricing-grid {
+    .privacy-panel {
+      padding: 30px;
+      border-radius: 26px;
+      border: 1px solid rgba(103,255,224,0.2);
+      background:
+        radial-gradient(circle at top right, rgba(103,255,224,0.13), transparent 0 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.028));
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: center;
     }
 
-    .price-card {
-      padding: 26px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-    }
-
-    .price-card.featured {
-      background: linear-gradient(180deg, rgba(158,197,255,0.11), rgba(255,255,255,0.04));
-      border-color: rgba(158,197,255,0.28);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.25);
-    }
-
-    .price-name {
-      font-size: 16px;
-      color: #dbe7ff;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .price-amount {
-      font-size: 38px;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      margin-bottom: 6px;
-    }
-
-    .price-amount span {
-      font-size: 15px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .price-sub {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .price-list {
-      display: grid;
+    .privacy-badges {
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 22px;
+      margin-top: 18px;
     }
 
-    .price-list div::before {
-      content: "•";
-      color: #cfe0ff;
-      margin-right: 8px;
+    .badge {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #e0edf9;
+      font-size: 13px;
+    }
+
+    .local-box {
+      border-radius: 22px;
+      background: rgba(2, 6, 12, 0.58);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 18px;
+    }
+
+    .local-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.075);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .local-row:last-child { border-bottom: none; }
+    .local-row strong { color: var(--text); }
+
+    .status-yes {
+      color: var(--green);
+      font-weight: 850;
     }
 
     .cta-panel {
-      padding: 30px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      padding: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--border-strong);
+      background:
+        radial-gradient(circle at 6% 10%, rgba(124,199,255,0.14), transparent 0 30%),
+        radial-gradient(circle at 95% 30%, rgba(103,255,224,0.13), transparent 0 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.03));
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
       flex-wrap: wrap;
+      box-shadow: var(--shadow);
     }
 
     footer {
-      padding: 40px 0;
+      padding: 42px 0;
       text-align: center;
       border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted-2);
+      font-size: 14px;
     }
+
     footer a {
-      color: #9ec5ff;
+      color: #9deaff;
       text-decoration: none;
-      margin: 0 5px;
+      margin: 0 6px;
     }
+
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes float {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-16px) scale(1.04);
-      }
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-18px) scale(1.04); }
     }
 
     @keyframes pulse {
-      0%, 100% {
-        opacity: 0.9;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.18);
-      }
+      0%, 100% { opacity: 0.88; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.18); }
     }
 
-    @keyframes loadBar {
-      from {
-        transform: scaleX(0.18);
-        opacity: 0.45;
-      }
-      to {
-        transform: scaleX(1);
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 980px) {
+    @media (max-width: 1020px) {
       .hero,
       .section-grid,
-      .steps,
-      .pricing-grid {
+      .feature-band,
+      .privacy-panel,
+      .steps {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 42px;
-      }
+      .hero { padding-top: 44px; }
     }
 
-    @media (max-width: 720px) {
-      .wrap {
-        width: min(calc(100% - 24px), var(--max));
-      }
-
-      .nav {
-        padding: 12px 14px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
+    @media (max-width: 760px) {
+      .wrap { width: min(calc(100% - 24px), var(--max)); }
+      .nav { padding: 12px 13px; }
+      .nav-links { display: none; }
+      .brand img { height: 38px; }
       .hero-actions,
-      .nav-actions {
-        flex-wrap: wrap;
-      }
-
+      .nav-actions { flex-wrap: wrap; }
       .btn,
-      .btn-secondary {
-        width: 100%;
-      }
-
-      .sub {
-        font-size: 16px;
-      }
-
-      .bottom-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .bar-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .score {
-        min-width: 76px;
-      }
-
-      .cta-panel {
-        align-items: flex-start;
-      }
+      .btn-secondary { width: 100%; }
+      .sub { font-size: 16px; }
+      .agent-tabs { grid-template-columns: 1fr; }
+      .file-item { grid-template-columns: auto 1fr; }
+      .file-status { grid-column: 2; }
+      .cta-panel { align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -794,36 +806,32 @@
         scroll-behavior: auto !important;
       }
     }
-.logo-img {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
   </style>
 </head>
 <body>
-  <div class="glow"></div>
+  <div class="orb-layer"></div>
   <div class="grid"></div>
   <div class="noise"></div>
 
   <div class="wrap">
     <header>
       <div class="nav">
-      <a class="brand" href="#">
-        <img src="/logo.png" alt="MastiLearn Logo" class="logo-img" />
-        <span>MastiLearn</span>
-      </a>
+        <a class="brand" href="#">
+          <img src="/logo.png" alt="MastiLearn Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+          <span class="brand-fallback" style="display:none;">M</span>
+          <span>MastiLearn</span>
+        </a>
 
         <div class="nav-links">
-          <a class="link" href="#demos">Demos</a>
+          <a class="link" href="#agents">Agents</a>
           <a class="link" href="#how-it-works">How it works</a>
-          <a class="link" href="#pricing">Pricing</a>
+          <a class="link" href="#privacy">Privacy</a>
+          <a class="link" href="#roadmap">Roadmap</a>
         </div>
 
         <div class="nav-actions">
-          <a class="link" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">Contact</a>
-          <a class="btn-secondary" href="#pricing">See Plans</a>
+          <a class="link" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20AI%20Agents%20Inquiry">Contact</a>
+          <a class="btn-secondary" href="#agents">Explore Agents</a>
         </div>
       </div>
     </header>
@@ -832,89 +840,86 @@
       <section class="hero-copy">
         <div class="eyebrow">
           <span class="eyebrow-dot"></span>
-          Websites for small businesses
+          AI agents for app builders
         </div>
 
         <h1>
-          Get a professional website
-          <span class="headline-soft">that helps grow your business.</span>
+          Describe your app.
+          <span class="gradient-text">Let agents build it.</span>
+          <span class="headline-soft">From idea to real code.</span>
         </h1>
 
         <p class="sub">
-          We build, host, and manage websites for small businesses so you can focus on serving customers, not dealing with tech. Pick a design, share your details, and go live fast.
+          MastiLearn helps developers, founders, and small teams generate app plans, UI screens, .NET MAUI code, APIs, database schemas, tests, and deployment steps using specialized AI agents.
         </p>
 
         <div class="hero-actions">
-          <a class="btn" href="#demos">See Demo Websites</a>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">
-            Get My Website
-          </a>
+          <a class="btn" href="#agents">Start with an Agent</a>
+          <a class="btn-secondary" href="#how-it-works">See How It Works</a>
         </div>
 
         <div class="meta">
-          <span>Done-for-you websites</span>
-          <span>Hosting & support included</span>
-          <span>Optional domain setup</span>
+          <span>No prompt storage</span>
+          <span>Browser-level history</span>
+          <span>Copy or download code</span>
         </div>
       </section>
 
       <section class="hero-panel">
         <div class="panel">
-          <div class="mock">
-            <div class="mock-top">
-              <div class="mock-title">Client dashboard preview</div>
-              <div class="mock-status">Live website</div>
+          <div class="builder">
+            <div class="builder-top">
+              <div class="builder-title">MastiLearn Agent Workspace</div>
+              <div class="builder-status">Generating app files</div>
             </div>
 
-            <div class="dashboard-card">
-              <div class="dashboard-head">
-                <div class="dashboard-role">
-                  <h3>Business website performance</h3>
-                  <p>Simple monitoring for business owners</p>
+            <div class="workspace">
+              <div class="prompt-box">
+                <div class="prompt-label">User prompt</div>
+                <div class="prompt-text">Create a .NET MAUI product details page with MVVM, API service, helper class, and unit tests.</div>
+              </div>
+
+              <div class="agent-tabs">
+                <div class="agent-pill active">MAUI Builder</div>
+                <div class="agent-pill">UI Agent</div>
+                <div class="agent-pill">Test Agent</div>
+              </div>
+
+              <div class="file-list">
+                <div class="file-item">
+                  <div class="file-icon">X</div>
+                  <div>
+                    <div class="file-name">ProductDetailsPage.xaml</div>
+                    <div class="file-meta">Responsive UI with styles and bindings</div>
+                  </div>
+                  <div class="file-status">Ready</div>
                 </div>
-                <div class="score">
-                  <strong>18</strong>
-                  <span>new leads</span>
+
+                <div class="file-item">
+                  <div class="file-icon">VM</div>
+                  <div>
+                    <div class="file-name">ProductDetailsViewModel.cs</div>
+                    <div class="file-meta">Observable properties, commands, loading state</div>
+                  </div>
+                  <div class="file-status">Ready</div>
+                </div>
+
+                <div class="file-item">
+                  <div class="file-icon">API</div>
+                  <div>
+                    <div class="file-name">ProductService.cs</div>
+                    <div class="file-meta">Interface, DTO, HttpClient integration</div>
+                  </div>
+                  <div class="file-status">Ready</div>
                 </div>
               </div>
 
-              <div class="bars">
-                <div class="bar-row">
-                  <span>Website visits</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
-                  <span>920</span>
-                </div>
-                <div class="bar-row">
-                  <span>Call clicks</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 68%; animation-delay: 0.08s;"></div></div>
-                  <span>68</span>
-                </div>
-                <div class="bar-row">
-                  <span>Form leads</span>
-                  <div class="bar-track"><div class="bar-fill" style="width: 54%; animation-delay: 0.16s;"></div></div>
-                  <span>18</span>
-                </div>
-              </div>
-
-              <div class="chips">
-                <span class="chip">Mobile-friendly</span>
-                <span class="chip">Lead form included</span>
-                <span class="chip">Managed support</span>
-              </div>
-
-              <div class="bottom-strip">
-                <div class="mini">
-                  <div class="mini-label">Website</div>
-                  <div class="mini-value">Live and hosted</div>
-                </div>
-                <div class="mini">
-                  <div class="mini-label">Domain</div>
-                  <div class="mini-value">Connected for your brand</div>
-                </div>
-                <div class="mini">
-                  <div class="mini-label">Support</div>
-                  <div class="mini-value">Updates and maintenance</div>
-                </div>
+              <div class="code-strip">
+                public partial class ProductDetailsViewModel : ObservableObject<br />
+                {<br />
+                &nbsp;&nbsp;[ObservableProperty] private Product? product;<br />
+                &nbsp;&nbsp;[RelayCommand] private async Task LoadAsync() { ... }<br />
+                }
               </div>
             </div>
           </div>
@@ -922,167 +927,195 @@
       </section>
     </main>
 
-    <section class="section" id="demos">
-      <h2 class="section-title">Choose a style that fits your business</h2>
+    <section class="section" id="agents">
+      <div class="section-kicker">Agent library</div>
+      <h2 class="section-title">Choose the agent for what you need to build</h2>
       <p class="section-sub">
-        Start with a proven layout. We customize it for your business, add your content, and launch it under your brand.
+        Start with one focused agent or combine multiple agents to go from app idea to working feature files.
       </p>
 
       <div class="section-grid">
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Salon & beauty</h4>
-          <p>Show services, pricing, photos, hours, and contact details in a polished layout that builds trust quickly.</p>
+        <div class="card agent-card">
+          <div class="icon">⚡</div>
+          <h3>MAUI Feature Builder</h3>
+          <p>Generate complete .NET MAUI features using MVVM and production-style structure.</p>
+          <ul>
+            <li>XAML and code-behind</li>
+            <li>ViewModel and commands</li>
+            <li>Services, models, helpers</li>
+            <li>Unit test starter files</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=MAUI%20Feature%20Builder%20Agent">Request Early Access</a>
         </div>
 
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Clinic & healthcare</h4>
-          <p>Present services, provider information, patient inquiries, and clinic contact details in a clean, reliable format.</p>
+        <div class="card agent-card">
+          <div class="icon">🎨</div>
+          <h3>UI Screen Agent</h3>
+          <p>Turn plain requirements into polished screens for mobile, web, or hybrid apps.</p>
+          <ul>
+            <li>Responsive layouts</li>
+            <li>Light and dark themes</li>
+            <li>Reusable components</li>
+            <li>Modern UX patterns</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=UI%20Screen%20Agent">Request Early Access</a>
         </div>
 
-        <div class="card demo-card">
-          <div class="demo-preview">
-            <div class="demo-topbar">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="demo-box"></div>
-            <div class="demo-box small"></div>
-            <div class="demo-row">
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-              <div class="demo-tile"></div>
-            </div>
-          </div>
-          <h4>Cleaning & local services</h4>
-          <p>Highlight service areas, quotes, testimonials, and contact actions so potential customers can reach you quickly.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="how-it-works">
-      <h2 class="section-title">How it works</h2>
-      <p class="section-sub">
-        Keep it simple. You choose a design you like, send us your business details, and we handle the rest.
-      </p>
-
-      <div class="steps">
-        <div class="card">
-          <div class="step-number">1</div>
-          <h4>Pick a website style</h4>
-          <p>Choose from ready-to-launch business website layouts tailored for real-world small business use cases.</p>
+        <div class="card agent-card">
+          <div class="icon">🧠</div>
+          <h3>App Idea Agent</h3>
+          <p>Convert app ideas into clear product plans, user flows, screens, and technical scope.</p>
+          <ul>
+            <li>Feature breakdown</li>
+            <li>Screen list</li>
+            <li>Data model plan</li>
+            <li>MVP roadmap</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=App%20Idea%20Agent">Request Early Access</a>
         </div>
 
-        <div class="card">
-          <div class="step-number">2</div>
-          <h4>Share your business details</h4>
-          <p>Send your business name, services, contact details, photos, and anything else you want displayed on the site.</p>
+        <div class="card agent-card">
+          <div class="icon">🔌</div>
+          <h3>API Builder Agent</h3>
+          <p>Create backend endpoints, DTOs, request/response contracts, and integration guidance.</p>
+          <ul>
+            <li>REST API design</li>
+            <li>DTO and model files</li>
+            <li>Error handling patterns</li>
+            <li>API documentation</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=API%20Builder%20Agent">Request Early Access</a>
         </div>
 
-        <div class="card">
-          <div class="step-number">3</div>
-          <h4>Launch and grow</h4>
-          <p>We publish your website, help connect your domain, and provide ongoing support, maintenance, and updates.</p>
+        <div class="card agent-card">
+          <div class="icon">🛠️</div>
+          <h3>Bug Fix Agent</h3>
+          <p>Paste your error, logs, or broken code and get a clear fix path with updated code.</p>
+          <ul>
+            <li>Error analysis</li>
+            <li>Root cause summary</li>
+            <li>Suggested fix</li>
+            <li>Test checklist</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=Bug%20Fix%20Agent">Request Early Access</a>
+        </div>
+
+        <div class="card agent-card">
+          <div class="icon">✅</div>
+          <h3>Unit Test Agent</h3>
+          <p>Generate unit tests for ViewModels, services, commands, validation, and loading states.</p>
+          <ul>
+            <li>xUnit test structure</li>
+            <li>Moq setup</li>
+            <li>Command tests</li>
+            <li>Edge case coverage</li>
+          </ul>
+          <a class="agent-button" href="mailto:dpatcharu@gmail.com?subject=Unit%20Test%20Agent">Request Early Access</a>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">What’s included</h2>
-      <p class="section-sub">
-        MastiLearn is designed to remove the technical burden from small business owners and give them a professional online presence without the usual complexity.
-      </p>
+      <div class="feature-band">
+        <div class="large-card">
+          <div class="section-kicker">Built for real developers</div>
+          <h2 class="section-title">Not just chat. Real file-based output.</h2>
+          <p class="section-sub" style="margin-bottom:0;">
+            MastiLearn is designed around the way developers actually work: multiple files, naming conventions, architecture patterns, reusable helpers, and copy-ready code.
+          </p>
+        </div>
 
-      <div class="section-grid">
-        <div class="card">
-          <h4>Done-for-you setup</h4>
-          <p>We handle the website setup, content placement, and launch flow so you do not need to worry about technical details.</p>
-        </div>
-        <div class="card">
-          <h4>Hosting and maintenance</h4>
-          <p>Your website stays online, secure, and updated with support included as part of your monthly plan.</p>
-        </div>
-        <div class="card">
-          <h4>Lead-focused pages</h4>
-          <p>Every website is built to make it easy for customers to call, message, or submit inquiries from any device.</p>
+        <div class="large-card">
+          <div class="check-grid">
+            <div class="check-item"><span class="checkmark">✓</span><span><strong>Feature-level generation:</strong> Generate complete app modules instead of one small snippet.</span></div>
+            <div class="check-item"><span class="checkmark">✓</span><span><strong>Architecture-aware output:</strong> Follow MVVM, service layers, dependency injection, and testable code patterns.</span></div>
+            <div class="check-item"><span class="checkmark">✓</span><span><strong>Developer-friendly export:</strong> Copy files, download generated output, or use the result as a starting point.</span></div>
+            <div class="check-item"><span class="checkmark">✓</span><span><strong>Privacy-first workflow:</strong> Prompts and generated code are not stored on our database.</span></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="pricing">
-      <h2 class="section-title">Simple monthly plans</h2>
+    <section class="section" id="how-it-works">
+      <div class="section-kicker">How it works</div>
+      <h2 class="section-title">From app idea to code in four steps</h2>
       <p class="section-sub">
-        Start with a professional website now, then scale with support, edits, and monitoring as your business grows.
+        Keep the experience simple for users while the agents handle the heavy lifting in the background.
       </p>
 
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div class="price-name">Starter</div>
-          <div class="price-amount">$15 <span>/ month</span></div>
-          <div class="price-sub">A simple online presence for businesses that want to get started quickly.</div>
-          <div class="price-list">
-            <div>Template-based website</div>
-            <div>MastiLearn subdomain</div>
-            <div>Mobile-friendly layout</div>
-            <div>Basic support</div>
-          </div>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Starter%20Plan">Choose Starter</a>
+      <div class="steps">
+        <div class="card">
+          <div class="step-number">1</div>
+          <h4>Describe your app or feature</h4>
+          <p>Enter what you want to build, the platform, and any project rules your code should follow.</p>
         </div>
 
-        <div class="price-card featured">
-          <div class="price-name">Growth</div>
-          <div class="price-amount">$25 <span>/ month</span></div>
-          <div class="price-sub">Best for local businesses that want lead capture, updates, and a stronger online presence.</div>
-          <div class="price-list">
-            <div>Everything in Starter</div>
-            <div>Custom domain connection</div>
-            <div>Contact / lead form</div>
-            <div>Website updates</div>
-            <div>Basic SEO setup</div>
-          </div>
-          <a class="btn" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Growth%20Plan">Choose Growth</a>
+        <div class="card">
+          <div class="step-number">2</div>
+          <h4>Pick the right agent</h4>
+          <p>Select a focused agent such as MAUI Builder, UI Generator, API Builder, or Bug Fixer.</p>
         </div>
 
-        <div class="price-card">
-          <div class="price-name">Pro</div>
-          <div class="price-amount">$49 <span>/ month</span></div>
-          <div class="price-sub">For businesses that want more support, faster changes, and simple visibility into website activity.</div>
-          <div class="price-list">
-            <div>Everything in Growth</div>
-            <div>Priority support</div>
-            <div>Monthly content edits</div>
-            <div>Basic monitoring dashboard</div>
-            <div>Analytics summary</div>
+        <div class="card">
+          <div class="step-number">3</div>
+          <h4>Generate files</h4>
+          <p>Get structured output separated into pages, ViewModels, services, models, helpers, and tests.</p>
+        </div>
+
+        <div class="card">
+          <div class="step-number">4</div>
+          <h4>Copy or export</h4>
+          <p>Copy individual files, download generated code, clear local history, and keep building.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="privacy">
+      <div class="privacy-panel">
+        <div>
+          <div class="section-kicker">Privacy-first by design</div>
+          <h2 class="section-title">Your code stays yours.</h2>
+          <p class="section-sub" style="margin-bottom:0;">
+            MastiLearn is planned so prompts, app ideas, and generated code are not saved to our database. Your recent work can stay only in your browser using local device storage, and you can clear it anytime.
+          </p>
+          <div class="privacy-badges">
+            <span class="badge">No code database</span>
+            <span class="badge">No prompt history tracking</span>
+            <span class="badge">Clear local history</span>
           </div>
-          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Pro%20Plan">Choose Pro</a>
+        </div>
+
+        <div class="local-box">
+          <div class="local-row"><strong>Prompt storage on server</strong><span class="status-yes">No</span></div>
+          <div class="local-row"><strong>Generated code stored in database</strong><span class="status-yes">No</span></div>
+          <div class="local-row"><strong>Browser-level history</strong><span class="status-yes">Optional</span></div>
+          <div class="local-row"><strong>User control</strong><span class="status-yes">Clear anytime</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="section-kicker">Roadmap</div>
+      <h2 class="section-title">Start with MAUI. Expand to every app stack.</h2>
+      <p class="section-sub">
+        The first version can focus on .NET MAUI because it is a strong niche. Later, MastiLearn can support React Native, Flutter, web apps, APIs, databases, and deployment workflows.
+      </p>
+
+      <div class="section-grid">
+        <div class="card">
+          <div class="icon">1</div>
+          <h4>Phase 1: MAUI agents</h4>
+          <p>Launch the MAUI Feature Builder, XAML Generator, ViewModel Generator, Bug Fixer, and Unit Test Agent.</p>
+        </div>
+        <div class="card">
+          <div class="icon">2</div>
+          <h4>Phase 2: Workspace</h4>
+          <p>Add file tabs, copy buttons, download ZIP, local browser history, and reusable prompt templates.</p>
+        </div>
+        <div class="card">
+          <div class="icon">3</div>
+          <h4>Phase 3: More stacks</h4>
+          <p>Support React Native, Flutter, Next.js, backend APIs, database schemas, and app deployment guides.</p>
         </div>
       </div>
     </section>
@@ -1090,29 +1123,27 @@
     <section class="section">
       <div class="cta-panel">
         <div>
-          <h2 class="section-title" style="margin-bottom: 8px;">Ready to launch your business website?</h2>
-          <p class="section-sub" style="margin: 0; max-width: 640px;">
-            Pick a design you like, send your details, and let MastiLearn handle the rest.
+          <div class="section-kicker">Start building</div>
+          <h2 class="section-title" style="margin-bottom: 8px;">Turn MastiLearn into your AI app-building platform.</h2>
+          <p class="section-sub" style="margin: 0; max-width: 690px;">
+            Begin with one powerful MAUI Feature Builder Agent, then expand into a full marketplace of app-building agents.
           </p>
         </div>
 
         <div class="hero-actions" style="margin-top: 0;">
-          <a class="btn" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20Website%20Inquiry&body=Hi,%20I%20want%20a%20website%20for%20my%20business.">
-            Get Started
-          </a>
-          <a class="btn-secondary" href="#demos">View Demos</a>
+          <a class="btn" href="#agents">Explore Agents</a>
+          <a class="btn-secondary" href="mailto:dpatcharu@gmail.com?subject=MastiLearn%20AI%20Agents%20Early%20Access">Request Early Access</a>
         </div>
       </div>
     </section>
 
-<footer>
-  © 2026 MastiLearn. Websites for small businesses.
-
-  <br /><br />
-
-<a href="/privacy.html">Privacy Policy</a> |
-<a href="/terms.html">Terms & Conditions</a>
-</footer>
+    <footer>
+      © 2026 MastiLearn. AI agents for app builders.
+      <br /><br />
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms & Conditions</a> |
+      <a href="mailto:dpatcharu@gmail.com">Contact</a>
+    </footer>
   </div>
 </body>
 </html>
