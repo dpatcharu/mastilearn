@@ -1,0 +1,68 @@
+import { ArticleCard } from "@/components/lifeverse/ArticleCard";
+import { CategoryCard } from "@/components/lifeverse/CategoryCard";
+import { Footer } from "@/components/lifeverse/Footer";
+import { Header } from "@/components/lifeverse/Header";
+import { Hero } from "@/components/lifeverse/Hero";
+import { Newsletter } from "@/components/lifeverse/Newsletter";
+import { PremiumCTA } from "@/components/lifeverse/PremiumCTA";
+import { SourcePanel } from "@/components/lifeverse/SourcePanel";
+import { Stats } from "@/components/lifeverse/Stats";
+import { articles, categories } from "@/data/lifeverse";
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-white text-slate-950">
+      <Header />
+      <Hero />
+      <Stats />
+
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20" id="categories">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-black uppercase tracking-normal text-slate-400">
+            Explore Categories
+          </p>
+          <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+            Choose what makes today better.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-slate-500">
+            A thoughtful mix of learning, lifestyle, money, food, events, and
+            playful ideas in one calm place.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <CategoryCard key={category.title} {...category} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20" id="trending">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-black uppercase tracking-normal text-slate-400">
+              Popular Reads
+            </p>
+            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+              Fresh picks for curious minds.
+            </h2>
+          </div>
+          <a className="text-sm font-bold text-slate-500 transition hover:text-slate-950" href="#">
+            View all articles
+          </a>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard key={article.title} {...article} />
+          ))}
+        </div>
+      </section>
+
+      <SourcePanel />
+      <PremiumCTA />
+      <Newsletter />
+      <Footer />
+    </main>
+  );
+}
