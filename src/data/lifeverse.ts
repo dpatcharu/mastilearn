@@ -12,59 +12,75 @@ import {
 export const categories = [
   {
     title: "Students Corner",
+    slug: "students-corner",
     description: "Study habits, career clarity, and useful learning guides.",
     icon: GraduationCap,
     image: "/images/students-learning.png",
-    tone: "from-sky-50 to-indigo-50"
+    tone: "from-sky-50 to-indigo-50",
+    focus: ["Study routines", "Career basics", "Reading lists"]
   },
   {
     title: "Business & Money",
+    slug: "business-money",
     description: "Simple ideas for earning, saving, and building smarter.",
     icon: BriefcaseBusiness,
     image: "/images/business-ideas.png",
-    tone: "from-emerald-50 to-lime-50"
+    tone: "from-emerald-50 to-lime-50",
+    focus: ["Small ideas", "Money habits", "Validation steps"]
   },
   {
     title: "Home & Interior",
+    slug: "home-interior",
     description: "Beautiful spaces, better routines, and practical decor.",
     icon: Home,
     image: "/images/home-interior.png",
-    tone: "from-rose-50 to-orange-50"
+    tone: "from-rose-50 to-orange-50",
+    focus: ["Room refreshes", "Storage", "Calm corners"]
   },
   {
     title: "Events",
+    slug: "events",
     description: "Thoughtful planning tips for memorable celebrations.",
     icon: CalendarHeart,
     image: "/images/events-celebration.png",
-    tone: "from-fuchsia-50 to-pink-50"
+    tone: "from-fuchsia-50 to-pink-50",
+    focus: ["Planning", "Decor", "Guest experience"]
   },
   {
     title: "Food",
+    slug: "food",
     description: "Healthy meals, quick recipes, and everyday kitchen joy.",
     icon: Salad,
     image: "/images/healthy-food.png",
-    tone: "from-amber-50 to-yellow-50"
+    tone: "from-amber-50 to-yellow-50",
+    focus: ["Simple meals", "Healthy swaps", "Meal ideas"]
   },
   {
     title: "DIY",
+    slug: "diy",
     description: "Hands-on projects that make daily life feel more creative.",
     icon: Hammer,
     image: "/images/diy.png",
-    tone: "from-cyan-50 to-teal-50"
+    tone: "from-cyan-50 to-teal-50",
+    focus: ["Weekend builds", "Repairs", "Creative reuse"]
   },
   {
     title: "Lifestyle",
+    slug: "lifestyle",
     description: "Gentle upgrades for wellness, habits, and personal style.",
     icon: HeartPulse,
     image: "/images/lifestyle.png",
-    tone: "from-violet-50 to-purple-50"
+    tone: "from-violet-50 to-purple-50",
+    focus: ["Wellness", "Routines", "Personal style"]
   },
   {
     title: "Games",
+    slug: "games",
     description: "Playful ideas, puzzles, and digital fun for quick breaks.",
     icon: Gamepad2,
     image: "/images/games.png",
-    tone: "from-slate-50 to-blue-50"
+    tone: "from-slate-50 to-blue-50",
+    focus: ["Puzzles", "Family games", "Brain breaks"]
   }
 ];
 
@@ -72,6 +88,7 @@ export const articles = [
   {
     title: "7 tiny study rituals that make focus feel easier",
     category: "Students",
+    slug: "students-corner",
     image: "/images/students-learning.png",
     time: "5 min read",
     source: "Inspired by Wikimedia learning topics"
@@ -79,6 +96,7 @@ export const articles = [
   {
     title: "A calm home corner you can create this weekend",
     category: "Interior",
+    slug: "home-interior",
     image: "/images/home-interior.png",
     time: "4 min read",
     source: "Original LifeVerse summary"
@@ -86,6 +104,7 @@ export const articles = [
   {
     title: "Fresh bowls for busy days without the fuss",
     category: "Food",
+    slug: "food",
     image: "/images/healthy-food.png",
     time: "6 min read",
     source: "Recipe data can use TheMealDB"
@@ -93,6 +112,7 @@ export const articles = [
   {
     title: "Small celebration details that feel premium",
     category: "Events",
+    slug: "events",
     image: "/images/events-celebration.png",
     time: "3 min read",
     source: "Original LifeVerse summary"
@@ -100,9 +120,53 @@ export const articles = [
   {
     title: "Business ideas you can validate before spending big",
     category: "Money",
+    slug: "business-money",
     image: "/images/business-ideas.png",
     time: "7 min read",
     source: "Public-domain/open data friendly"
+  }
+];
+
+export const categoryGuides = categories.flatMap((category) =>
+  category.focus.map((topic, index) => ({
+    title: `${topic} for ${category.title}`,
+    category: category.title,
+    slug: category.slug,
+    image: category.image,
+    time: `${index + 3} min read`,
+    source:
+      category.slug === "food"
+        ? "Original summary, recipe-ready via TheMealDB"
+        : category.slug === "students-corner"
+          ? "Original summary, source-ready via Open Library"
+          : "Original LifeVerse starter summary"
+  }))
+);
+
+export const premiumBenefits = [
+  "Deep-dive guides for every category",
+  "Printable checklists and templates",
+  "Monthly premium reading collections",
+  "Ad-free browsing and saved favorites",
+  "Early access to new category packs",
+  "Simple action plans for students, homes, and small businesses"
+];
+
+export const editorialPrinciples = [
+  {
+    title: "Original summaries first",
+    description:
+      "LifeVerse should use external APIs for facts and inspiration, then publish its own concise explanations."
+  },
+  {
+    title: "Attribution-ready media",
+    description:
+      "When Creative Commons images are used later, every card can carry author, source, and license metadata."
+  },
+  {
+    title: "Small useful pages",
+    description:
+      "Each category should feel practical, calm, and easy to scan instead of becoming a noisy content feed."
   }
 ];
 

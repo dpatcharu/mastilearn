@@ -4,7 +4,13 @@ import { Menu, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
-const navItems = ["Home", "Categories", "Trending", "Premium", "About"];
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Categories", href: "/categories" },
+  { label: "Trending", href: "/trending" },
+  { label: "Premium", href: "/premium" },
+  { label: "About", href: "/about" }
+];
 
 export function Header() {
   return (
@@ -15,14 +21,14 @@ export function Header() {
       transition={{ duration: 0.45, ease: "easeOut" }}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a className="text-2xl font-black tracking-tight text-slate-950" href="#">
+        <a className="text-2xl font-black tracking-tight text-slate-950" href="/">
           LifeVerse
         </a>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 lg:flex">
           {navItems.map((item) => (
-            <a className="transition hover:text-slate-950" href="#" key={item}>
-              {item}
+            <a className="transition hover:text-slate-950" href={item.href} key={item.label}>
+              {item.label}
             </a>
           ))}
         </nav>
@@ -34,8 +40,12 @@ export function Header() {
           >
             <Search className="size-4" />
           </button>
-          <Button variant="ghost">Login</Button>
-          <Button>Subscribe</Button>
+          <a href="/about">
+            <Button variant="ghost">Login</Button>
+          </a>
+          <a href="/premium">
+            <Button>Subscribe</Button>
+          </a>
         </div>
 
         <button

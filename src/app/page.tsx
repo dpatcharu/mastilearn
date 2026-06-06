@@ -32,7 +32,11 @@ export default function Home() {
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((category) => (
-            <CategoryCard key={category.title} {...category} />
+            <CategoryCard
+              href={`/categories/${category.slug}`}
+              key={category.title}
+              {...category}
+            />
           ))}
         </div>
       </section>
@@ -54,7 +58,11 @@ export default function Home() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
-            <ArticleCard key={article.title} {...article} />
+            <ArticleCard
+              href={`/categories/${article.slug}`}
+              key={article.title}
+              {...article}
+            />
           ))}
         </div>
       </section>
