@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { assetPath } from "@/lib/assetPath";
 
 const collageImages = [
   { src: "/images/students-learning.png", alt: "Learning desk", className: "col-span-7 h-48 sm:h-64" },
@@ -63,7 +64,7 @@ export function Hero() {
                   fill
                   priority={image.src.includes("students")}
                   sizes="(max-width: 1024px) 50vw, 28vw"
-                  src={image.src}
+                  src={assetPath(image.src)}
                 />
               </div>
             ))}

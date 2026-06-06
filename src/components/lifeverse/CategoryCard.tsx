@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
 
 type CategoryCardProps = {
   description: string;
@@ -20,7 +21,7 @@ export function CategoryCard({ description, icon: Icon, image, title, tone }: Ca
           className="object-cover transition duration-500 group-hover:scale-105"
           fill
           sizes="(max-width: 768px) 100vw, 25vw"
-          src={image}
+          src={assetPath(image)}
         />
         <div className="absolute left-5 top-5 grid size-12 place-items-center rounded-2xl bg-white/90 text-slate-950 shadow-sm backdrop-blur">
           <Icon className="size-5" />

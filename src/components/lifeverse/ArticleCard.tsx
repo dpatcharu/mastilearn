@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
 
 type ArticleCardProps = {
   category: string;
@@ -17,7 +18,7 @@ export function ArticleCard({ category, image, source, time, title }: ArticleCar
           className="object-cover transition duration-500 group-hover:scale-105"
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          src={image}
+          src={assetPath(image)}
         />
       </div>
       <div className="p-6">

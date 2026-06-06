@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { assetPath } from "@/lib/assetPath";
 
 const benefits = ["Exclusive guides", "Ad-free reading", "Premium templates"];
 
@@ -33,7 +34,7 @@ export function PremiumCTA() {
             className="object-contain drop-shadow-2xl"
             fill
             sizes="300px"
-            src="/images/premium-gift.png"
+            src={assetPath("/images/premium-gift.png")}
           />
         </div>
       </div>
