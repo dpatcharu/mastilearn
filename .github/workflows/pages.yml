@@ -36,9 +36,6 @@ jobs:
 
       - name: Build static site
         run: npm run build
-        env:
-          GITHUB_PAGES: "true"
-          NEXT_PUBLIC_BASE_PATH: "/mastilearn"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
