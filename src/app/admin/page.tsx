@@ -1,4 +1,5 @@
 import { FileText, LayoutDashboard, ShieldCheck, Tags } from "lucide-react";
+import { AuthStatus } from "@/components/lifeverse/AuthStatus";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { PageHero } from "@/components/lifeverse/PageHero";
@@ -20,6 +21,9 @@ export default function AdminPage() {
         title="Manage LifeVerse content from one calm workspace."
       />
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+        <div className="mb-8">
+          <AuthStatus />
+        </div>
         <div className="grid gap-5 md:grid-cols-3">
           {cards.map((card) => (
             <article className="rounded-[2rem] bg-slate-50 p-7 ring-1 ring-slate-200/70" key={card.label}>

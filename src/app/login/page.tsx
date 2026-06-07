@@ -1,5 +1,6 @@
 import { ArrowRight, ShieldCheck, UserRound } from "lucide-react";
 import { AuthCard } from "@/components/lifeverse/AuthCard";
+import { AuthForm } from "@/components/lifeverse/AuthForm";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { PageHero } from "@/components/lifeverse/PageHero";
@@ -20,6 +21,7 @@ export default function LoginPage() {
           eyebrow="Customer"
           title="Reader login"
         >
+          <AuthForm role="customer" />
           <div className="mt-7 grid gap-3">
             {customerFeatures.map((feature) => (
               <div className="flex items-center gap-3 text-sm font-semibold text-slate-600" key={feature}>
@@ -39,6 +41,7 @@ export default function LoginPage() {
           eyebrow="Admin"
           title="Admin login"
         >
+          <AuthForm role="admin" />
           <div className="mt-7 rounded-[1.25rem] bg-amber-50 p-4 text-sm leading-6 text-amber-900">
             <div className="mb-2 flex items-center gap-2 font-black">
               <ShieldCheck className="size-4" />
