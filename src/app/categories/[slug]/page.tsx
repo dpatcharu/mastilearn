@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { ArticleCard } from "@/components/lifeverse/ArticleCard";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
+import { LiveCategoryFeed } from "@/components/lifeverse/LiveCategoryFeed";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
-import { categories, categoryGuides } from "@/data/lifeverse";
+import { categories } from "@/data/lifeverse";
 import { assetPath } from "@/lib/assetPath";
 
 type CategoryPageProps = {
@@ -38,7 +38,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const guides = categoryGuides.filter((guide) => guide.slug === category.slug);
   const Icon = category.icon;
 
   return (
@@ -74,26 +73,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-black uppercase tracking-normal text-slate-400">
-              Save-worthy starts
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950">
-              Build your first board from these.
-            </h2>
-          </div>
-          <a className="text-sm font-bold text-slate-500 hover:text-slate-950" href="/categories">
-            All categories
-          </a>
-        </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {guides.map((guide) => (
-            <ArticleCard href={`/categories/${category.slug}`} key={guide.title} {...guide} />
-          ))}
-        </div>
-      </section>
+      <LiveCategoryFeed categoryTitle={category.title} slug={category.slug} />
       <Newsletter />
       <Footer />
     </main>
