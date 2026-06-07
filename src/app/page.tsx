@@ -4,6 +4,7 @@ import { DiscoveryFeed } from "@/components/lifeverse/DiscoveryFeed";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { Hero } from "@/components/lifeverse/Hero";
+import { LiveDrops } from "@/components/lifeverse/LiveDrops";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
 import { PremiumCTA } from "@/components/lifeverse/PremiumCTA";
 import { SocialFeatures } from "@/components/lifeverse/SocialFeatures";
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero />
       <Stats />
       <DiscoveryFeed />
+      <LiveDrops />
       <SocialFeatures />
 
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20" id="categories">
