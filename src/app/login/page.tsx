@@ -37,7 +37,7 @@ export default function LoginPage() {
         </AuthCard>
 
         <AuthCard
-          description="For content managers and owners. This page is UI-only for now; real admin auth needs a backend provider."
+          description="For content managers and owners. Admin access uses Supabase auth and should be limited to approved team accounts."
           eyebrow="Admin"
           title="Admin login"
         >
@@ -47,8 +47,8 @@ export default function LoginPage() {
               <ShieldCheck className="size-4" />
               Restricted access
             </div>
-            Admin login should connect to a secure provider such as Supabase,
-            Clerk, Auth.js, or Firebase before content editing is enabled.
+            Admin signups create an account, but dashboard permissions should
+            only be granted after the profile is marked as admin in Supabase.
           </div>
           <a className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-slate-950" href="/admin">
             Open admin preview
