@@ -18,8 +18,10 @@ type OAuthProvider = "google" | "apple";
 
 export function AuthForm({ role }: AuthFormProps) {
   const [mode, setMode] = useState<AuthMode>("signin");
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -82,7 +84,9 @@ export function AuthForm({ role }: AuthFormProps) {
       password,
       options: {
         data: {
-          account_type: role
+          account_type: role,
+          display_name: displayName,
+          username
         },
         emailRedirectTo: getAuthRedirectUrl("/account/")
       }
@@ -200,6 +204,32 @@ export function AuthForm({ role }: AuthFormProps) {
           value={email}
         />
       </label>
+      {mode === "signup" ? (
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="grid gap-2 text-sm font-semibold text-slate-700">
+            Display name
+            <input
+              className="min-h-12 rounded-full bg-slate-50 px-5 text-sm outline-none ring-1 ring-slate-200 transition focus:ring-slate-400"
+              onChange={(event) => setDisplayName(event.target.value)}
+              placeholder="Your creator name"
+              type="text"
+              value={displayName}
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-semibold text-slate-700">
+            Username
+            <input
+              className="min-h-12 rounded-full bg-slate-50 px-5 text-sm outline-none ring-1 ring-slate-200 transition focus:ring-slate-400"
+              onChange={(event) =>
+                setUsername(event.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))
+              }
+              placeholder="masti_creator"
+              type="text"
+              value={username}
+            />
+          </label>
+        </div>
+      ) : null}
       <label className="grid gap-2 text-sm font-semibold text-slate-700">
         Password
         <input
@@ -217,7 +247,7 @@ export function AuthForm({ role }: AuthFormProps) {
           type="button"
         >
           <Mail className="mr-2 size-4" />
-          {mode === "signin" ? "Sign in with email" : "Create account with email"}
+          {mode === "signin" ? "Sign in with email" : "Create your LifeVerse"}
         </Button>
         {mode === "signin" ? (
           <button

@@ -1,8 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import type { User } from "@supabase/supabase-js";
-import { BadgeCheck, Eye, FileText, Send, Sparkles } from "lucide-react";
+import {
+  BadgeCheck,
+  Clapperboard,
+  Eye,
+  FileText,
+  ImagePlus,
+  LayoutGrid,
+  PenLine,
+  Send,
+  Sparkles,
+  Upload
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/lifeverse";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
@@ -12,10 +23,14 @@ type CreatorPost = {
   category_slug: string;
   created_at: string;
   id: string;
+  media_type?: "image" | "video";
+  media_url?: string;
   status: "draft" | "published";
   summary: string;
   title: string;
 };
+
+type PostStyle = "pin" | "story" | "guide" | "video";
 
 const storageKey = "lifeverse-creator-posts";
 
@@ -41,6 +56,9 @@ export function CreatorStudio() {
   const [summary, setSummary] = useState("");
   const [body, setBody] = useState("");
   const [categorySlug, setCategorySlug] = useState(categories[0]?.slug ?? "students-corner");
+  const [mediaType, setMediaType] = useState<"image" | "video" | undefined>();
+  const [mediaUrl, setMediaUrl] = useState("");
+  const [postStyle, setPostStyle] = useState<PostStyle>("pin");
   const [posts, setPosts] = useState<CreatorPost[]>([]);
   const [message, setMessage] = useState("");
   const [mode, setMode] = useState<"edit" | "preview">("edit");
@@ -63,20 +81,48 @@ export function CreatorStudio() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const badges = useMemo(() => {
-    const publishedCount = posts.filter((post) => post.status === "published").length;
-    const draftCount = posts.filter((post) => post.status === "draft").length;
+  const publishedCount = posts.filter((post) => post.status === "published").length;
+  const draftCount = posts.filter((post) => post.status === "draft").length;
 
-    return [
-      publishedCount >= 1 ? "First Publish" : null,
-      draftCount >= 3 ? "Idea Builder" : null,
-      publishedCount >= 5 ? "Rising Voice" : null
-    ].filter(Boolean);
-  }, [posts]);
+  const badges = useMemo(
+    () =>
+      [
+        publishedCount >= 1 ? "First Publish" : null,
+        posts.some((post) => post.media_url) ? "Visual Creator" : null,
+        draftCount >= 3 ? "Idea Builder" : null,
+        publishedCount >= 5 ? "Rising Voice" : null
+      ].filter(Boolean),
+    [draftCount, posts, publishedCount]
+  );
+
+  function handleMediaUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const nextType = file.type.startsWith("video") ? "video" : "image";
+    setMediaType(nextType);
+    setPostStyle(nextType === "video" ? "video" : postStyle);
+
+    if (nextType === "video") {
+      setMediaUrl(URL.createObjectURL(file));
+      setMessage("Video preview added. Permanent video hosting will use Supabase Storage next.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setMediaUrl(String(reader.result ?? ""));
+      setMessage("Image added to your post preview.");
+    };
+    reader.readAsDataURL(file);
+  }
 
   async function savePost(status: CreatorPost["status"]) {
-    if (!title.trim() || !summary.trim() || !body.trim()) {
-      setMessage("Add a title, summary, and body before saving.");
+    if (!title.trim() || (!summary.trim() && !body.trim() && !mediaUrl)) {
+      setMessage("Add a title and at least one idea, caption, image, or video.");
       return;
     }
 
@@ -85,6 +131,8 @@ export function CreatorStudio() {
       category_slug: categorySlug,
       created_at: new Date().toISOString(),
       id: crypto.randomUUID(),
+      media_type: mediaType,
+      media_url: mediaUrl,
       status,
       summary,
       title
@@ -93,13 +141,15 @@ export function CreatorStudio() {
     const nextPosts = [post, ...posts];
     setPosts(nextPosts);
     writeLocalPosts(nextPosts);
-    setMessage(status === "draft" ? "Draft saved to your creator workspace." : "Published to your creator workspace.");
+    setMessage(status === "draft" ? "Draft saved." : "Published to your creator profile.");
 
     if (supabase && user) {
       await supabase.from("creator_posts").insert({
         author_id: user.id,
         body,
         category_slug: categorySlug,
+        media_type: mediaType,
+        media_url: mediaUrl || null,
         status,
         summary,
         title
@@ -114,8 +164,7 @@ export function CreatorStudio() {
           <p className="text-sm font-black uppercase text-slate-400">Creator Studio</p>
           <h1 className="mt-3 text-4xl font-black text-slate-950">Login to create.</h1>
           <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-            Creator tools are for members. Login to draft posts, preview them, publish,
-            build followers, and earn badges.
+            Members can post images, videos, guides, ideas, and stories into the LifeVerse network.
           </p>
           <a className="mt-6 inline-flex" href="/login/">
             <Button>Login or create account</Button>
@@ -126,30 +175,52 @@ export function CreatorStudio() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
+    <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-normal text-slate-400">
             Creator Studio
           </p>
           <h1 className="mt-3 text-5xl font-black tracking-tight text-slate-950">
-            Draft. Preview. Publish. Grow.
+            Create the next thing people save.
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-            Create original posts for LifeVerse categories. Published content can
-            grow followers, views, and creator badges.
+            Mix pins, reels, guides, and short stories. Draft privately, preview cleanly, then publish.
           </p>
         </div>
         <a href="/creator/">
-          <Button variant="secondary">View creator profile</Button>
+          <Button variant="secondary">View profile</Button>
         </a>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.8fr]">
-        <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
-          <div className="grid rounded-full bg-slate-100 p-1 sm:grid-cols-2">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="rounded-[2rem] bg-white p-5 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 sm:p-6">
+          <div className="grid gap-3 sm:grid-cols-4">
             {[
-              { label: "Write", value: "edit" as const },
+              { icon: ImagePlus, label: "Pin", value: "pin" as const },
+              { icon: Clapperboard, label: "Video", value: "video" as const },
+              { icon: FileText, label: "Guide", value: "guide" as const },
+              { icon: PenLine, label: "Story", value: "story" as const }
+            ].map((item) => (
+              <button
+                className={`min-h-14 rounded-[1.2rem] px-4 text-sm font-black transition ${
+                  postStyle === item.value
+                    ? "bg-slate-950 text-white"
+                    : "bg-slate-50 text-slate-600 hover:bg-slate-100"
+                }`}
+                key={item.value}
+                onClick={() => setPostStyle(item.value)}
+                type="button"
+              >
+                <item.icon className="mx-auto mb-1 size-4" />
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-5 grid rounded-full bg-slate-100 p-1 sm:grid-cols-2">
+            {[
+              { label: "Compose", value: "edit" as const },
               { label: "Preview", value: "preview" as const }
             ].map((item) => (
               <button
@@ -166,36 +237,80 @@ export function CreatorStudio() {
           </div>
 
           {mode === "edit" ? (
-            <div className="mt-6 grid gap-4">
-              <label className="grid gap-2 text-sm font-bold text-slate-700">
-                Title
-                <input className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setTitle(event.target.value)} value={title} />
+            <div className="mt-6 grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
+              <label className="grid min-h-96 cursor-pointer place-items-center rounded-[1.75rem] bg-slate-50 p-5 text-center ring-1 ring-slate-200 transition hover:bg-slate-100">
+                <input
+                  accept="image/*,video/*"
+                  className="sr-only"
+                  onChange={handleMediaUpload}
+                  type="file"
+                />
+                {mediaUrl ? (
+                  <div className="w-full">
+                    {mediaType === "video" ? (
+                      <video className="max-h-[30rem] w-full rounded-[1.4rem] object-cover" controls src={mediaUrl} />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img alt="" className="max-h-[30rem] w-full rounded-[1.4rem] object-cover" src={mediaUrl} />
+                    )}
+                    <p className="mt-4 text-sm font-black text-slate-500">Click to replace media</p>
+                  </div>
+                ) : (
+                  <div>
+                    <Upload className="mx-auto size-10 text-slate-400" />
+                    <p className="mt-4 text-xl font-black text-slate-950">Upload image or video</p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">
+                      Create visual posts, quick clips, tutorials, product ideas, or daily inspiration.
+                    </p>
+                  </div>
+                )}
               </label>
-              <label className="grid gap-2 text-sm font-bold text-slate-700">
-                Category
-                <select className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setCategorySlug(event.target.value)} value={categorySlug}>
-                  {categories.map((category) => (
-                    <option key={category.slug} value={category.slug}>{category.title}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="grid gap-2 text-sm font-bold text-slate-700">
-                Summary
-                <textarea className="min-h-24 rounded-[1.5rem] bg-slate-50 p-5 outline-none ring-1 ring-slate-200" onChange={(event) => setSummary(event.target.value)} value={summary} />
-              </label>
-              <label className="grid gap-2 text-sm font-bold text-slate-700">
-                Content
-                <textarea className="min-h-64 rounded-[1.5rem] bg-slate-50 p-5 outline-none ring-1 ring-slate-200" onChange={(event) => setBody(event.target.value)} value={body} />
-              </label>
+
+              <div className="grid gap-4">
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Title
+                  <input className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setTitle(event.target.value)} placeholder="A hook people want to tap" value={title} />
+                </label>
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Category
+                  <select className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setCategorySlug(event.target.value)} value={categorySlug}>
+                    {categories.map((category) => (
+                      <option key={category.slug} value={category.slug}>{category.title}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Caption
+                  <textarea className="min-h-28 rounded-[1.5rem] bg-slate-50 p-5 outline-none ring-1 ring-slate-200" onChange={(event) => setSummary(event.target.value)} placeholder="Short caption or promise" value={summary} />
+                </label>
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Details
+                  <textarea className="min-h-44 rounded-[1.5rem] bg-slate-50 p-5 outline-none ring-1 ring-slate-200" onChange={(event) => setBody(event.target.value)} placeholder="Steps, story, list, or full post" value={body} />
+                </label>
+              </div>
             </div>
           ) : (
-            <article className="mt-6 rounded-[1.75rem] bg-slate-50 p-6 ring-1 ring-slate-200/70">
-              <p className="text-xs font-black uppercase text-slate-400">
-                {categories.find((category) => category.slug === categorySlug)?.title}
-              </p>
-              <h2 className="mt-3 text-3xl font-black text-slate-950">{title || "Untitled draft"}</h2>
-              <p className="mt-4 font-semibold leading-7 text-slate-600">{summary || "Summary preview"}</p>
-              <div className="mt-5 whitespace-pre-wrap leading-8 text-slate-700">{body || "Your content preview will appear here."}</div>
+            <article className="mx-auto mt-6 max-w-xl overflow-hidden rounded-[2rem] bg-slate-50 ring-1 ring-slate-200/70">
+              {mediaUrl ? (
+                mediaType === "video" ? (
+                  <video className="max-h-[34rem] w-full object-cover" controls src={mediaUrl} />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img alt="" className="max-h-[34rem] w-full object-cover" src={mediaUrl} />
+                )
+              ) : (
+                <div className="grid h-72 place-items-center bg-gradient-to-br from-rose-100 via-amber-100 to-sky-100">
+                  <LayoutGrid className="size-10 text-white" />
+                </div>
+              )}
+              <div className="p-6">
+                <p className="text-xs font-black uppercase text-slate-400">
+                  {categories.find((category) => category.slug === categorySlug)?.title}
+                </p>
+                <h2 className="mt-3 text-3xl font-black text-slate-950">{title || "Untitled post"}</h2>
+                <p className="mt-4 font-semibold leading-7 text-slate-600">{summary || "Caption preview"}</p>
+                <div className="mt-5 whitespace-pre-wrap leading-8 text-slate-700">{body || "Details preview"}</div>
+              </div>
             </article>
           )}
 
@@ -212,17 +327,15 @@ export function CreatorStudio() {
           {message ? <p className="mt-4 rounded-[1.25rem] bg-emerald-50 p-4 text-sm font-bold text-emerald-800">{message}</p> : null}
         </div>
 
-        <aside className="grid gap-5">
+        <aside className="grid content-start gap-5">
           <div className="rounded-[2rem] bg-slate-950 p-6 text-white">
-            <div className="flex items-center gap-3">
-              <Sparkles className="size-5 text-white/45" />
-              <h2 className="text-xl font-black">Creator path</h2>
-            </div>
+            <Sparkles className="size-5 text-white/45" />
+            <h2 className="mt-3 text-xl font-black">Growth loop</h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-white/65">
-              <p>1. Save drafts before publishing.</p>
-              <p>2. Publish original category posts.</p>
-              <p>3. Grow followers from strong content.</p>
-              <p>4. Earn badges from publishing and engagement.</p>
+              <p>Post useful visuals people want to save.</p>
+              <p>Turn drafts into series so followers return.</p>
+              <p>Earn badges as your publishing streak grows.</p>
+              <p>Premium posts and creator rewards come next.</p>
             </div>
           </div>
           <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
@@ -247,9 +360,16 @@ export function CreatorStudio() {
               <Eye className="size-5 text-slate-400" />
               <h2 className="text-xl font-black text-slate-950">Workspace</h2>
             </div>
-            <p className="mt-4 text-sm font-semibold leading-6 text-slate-500">
-              {posts.length} saved creator post{posts.length === 1 ? "" : "s"} on this device.
-            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="rounded-[1.25rem] bg-slate-50 p-4">
+                <p className="text-2xl font-black text-slate-950">{draftCount}</p>
+                <p className="text-xs font-bold uppercase text-slate-400">Drafts</p>
+              </div>
+              <div className="rounded-[1.25rem] bg-slate-50 p-4">
+                <p className="text-2xl font-black text-slate-950">{publishedCount}</p>
+                <p className="text-xs font-bold uppercase text-slate-400">Published</p>
+              </div>
+            </div>
           </div>
         </aside>
       </div>

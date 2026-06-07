@@ -1,10 +1,24 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
+  username text,
+  display_name text,
+  bio text,
+  avatar_url text,
+  website_url text,
   account_type text not null default 'customer' check (account_type in ('customer', 'admin')),
   is_premium boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+alter table public.profiles add column if not exists username text;
+alter table public.profiles add column if not exists display_name text;
+alter table public.profiles add column if not exists bio text;
+alter table public.profiles add column if not exists avatar_url text;
+alter table public.profiles add column if not exists website_url text;
+create unique index if not exists profiles_username_unique_idx
+on public.profiles (username)
+where username is not null;
 
 create table if not exists public.saved_items (
   id uuid primary key default gen_random_uuid(),
@@ -39,12 +53,30 @@ create table if not exists public.creator_posts (
   summary text not null,
   body text not null,
   category_slug text not null,
+  media_url text,
+  media_type text check (media_type in ('image', 'video')),
   status text not null default 'draft' check (status in ('draft', 'published')),
   view_count integer not null default 0,
   like_count integer not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.creator_posts add column if not exists media_url text;
+alter table public.creator_posts add column if not exists media_type text;
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'creator_posts_media_type_check'
+  ) then
+    alter table public.creator_posts
+    add constraint creator_posts_media_type_check
+    check (media_type in ('image', 'video'));
+  end if;
+end;
+$$;
 
 create table if not exists public.creator_follows (
   follower_id uuid not null references auth.users(id) on delete cascade,
@@ -69,10 +101,12 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, email, account_type)
+  insert into public.profiles (id, email, username, display_name, account_type)
   values (
     new.id,
     new.email,
+    nullif(lower(regexp_replace(coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1)), '[^a-z0-9_]+', '', 'g')), ''),
+    nullif(new.raw_user_meta_data->>'display_name', ''),
     coalesce(new.raw_user_meta_data->>'account_type', 'customer')
   )
   on conflict (id) do nothing;

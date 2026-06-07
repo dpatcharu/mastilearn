@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BadgeCheck, Eye, FileText, UserPlus } from "lucide-react";
+import { BadgeCheck, Clapperboard, Eye, FileText, Heart, PenSquare, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { categories } from "@/data/lifeverse";
 
 type CreatorPost = {
   body: string;
   category_slug: string;
   created_at: string;
   id: string;
+  media_type?: "image" | "video";
+  media_url?: string;
   status: "draft" | "published";
   summary: string;
   title: string;
@@ -26,6 +29,10 @@ function readLocalPosts() {
   }
 }
 
+function getCategoryTitle(slug: string) {
+  return categories.find((category) => category.slug === slug)?.title ?? slug.replace(/-/g, " ");
+}
+
 export function CreatorProfileView() {
   const [posts, setPosts] = useState<CreatorPost[]>([]);
 
@@ -35,90 +42,151 @@ export function CreatorProfileView() {
 
   const published = posts.filter((post) => post.status === "published");
   const drafts = posts.filter((post) => post.status === "draft");
+  const visualPosts = posts.filter((post) => post.media_url).length;
   const badges = useMemo(
     () =>
       [
         published.length >= 1 ? "First Publish" : null,
+        visualPosts >= 1 ? "Visual Creator" : null,
         posts.length >= 3 ? "Idea Builder" : null,
         published.length >= 5 ? "Rising Voice" : null
       ].filter(Boolean),
-    [posts.length, published.length]
+    [posts.length, published.length, visualPosts]
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-      <div className="rounded-[2.5rem] bg-slate-950 p-8 text-white shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:p-10">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-black uppercase text-white/45">Creator Profile</p>
-            <h1 className="mt-3 text-5xl font-black tracking-tight">Your influence hub.</h1>
-            <p className="mt-4 max-w-2xl leading-7 text-white/65">
-              Track drafts, published posts, followers, and badges as your content grows.
-            </p>
-          </div>
-          <a href="/create/">
-            <Button className="bg-white text-slate-950 hover:bg-slate-100">Create content</Button>
-          </a>
-        </div>
-
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          {[
-            { label: "Published", value: published.length, icon: Eye },
-            { label: "Drafts", value: drafts.length, icon: FileText },
-            { label: "Followers", value: 0, icon: UserPlus }
-          ].map((stat) => (
-            <div className="rounded-[1.5rem] bg-white/[0.06] p-5 ring-1 ring-white/10" key={stat.label}>
-              <stat.icon className="size-5 text-white/45" />
-              <p className="mt-4 text-4xl font-black">{stat.value}</p>
-              <p className="mt-1 text-sm font-bold text-white/45">{stat.label}</p>
+    <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
+      <div className="overflow-hidden rounded-[2.5rem] bg-slate-950 text-white shadow-[0_28px_90px_rgba(15,23,42,0.18)]">
+        <div className="h-48 bg-[radial-gradient(circle_at_12%_18%,rgba(251,191,36,0.48),transparent_30%),radial-gradient(circle_at_86%_10%,rgba(56,189,248,0.36),transparent_32%),linear-gradient(135deg,#0f172a,#4c1d95_45%,#831843)]" />
+        <div className="px-7 pb-8 sm:px-10">
+          <div className="-mt-16 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+              <div className="grid size-32 place-items-center rounded-[2rem] border-4 border-slate-950 bg-white text-4xl font-black text-slate-950 shadow-2xl">
+                LV
+              </div>
+              <div>
+                <p className="text-sm font-black uppercase text-white/45">Creator Profile</p>
+                <h1 className="mt-2 text-5xl font-black tracking-tight">Your influence hub.</h1>
+                <p className="mt-3 max-w-2xl leading-7 text-white/65">
+                  Your posts, drafts, badges, followers, and creative momentum in one place.
+                </p>
+              </div>
             </div>
-          ))}
+            <a href="/create/">
+              <Button className="bg-white text-slate-950 hover:bg-slate-100">Create content</Button>
+            </a>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-4">
+            {[
+              { label: "Published", value: published.length, icon: Eye },
+              { label: "Drafts", value: drafts.length, icon: FileText },
+              { label: "Visuals", value: visualPosts, icon: Clapperboard },
+              { label: "Followers", value: 0, icon: UserPlus }
+            ].map((stat) => (
+              <div className="rounded-[1.5rem] bg-white/[0.06] p-5 ring-1 ring-white/10" key={stat.label}>
+                <stat.icon className="size-5 text-white/45" />
+                <p className="mt-4 text-4xl font-black">{stat.value}</p>
+                <p className="mt-1 text-sm font-bold text-white/45">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
-          <div className="flex items-center gap-3">
-            <BadgeCheck className="size-5 text-slate-400" />
-            <h2 className="text-xl font-black text-slate-950">Badges</h2>
+      <div className="mt-8 grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+        <aside className="grid content-start gap-6">
+          <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <div className="flex items-center gap-3">
+              <BadgeCheck className="size-5 text-slate-400" />
+              <h2 className="text-xl font-black text-slate-950">Badges</h2>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {badges.length > 0 ? (
+                badges.map((badge) => (
+                  <span className="rounded-full bg-amber-50 px-4 py-2 text-sm font-black text-amber-800" key={badge}>
+                    {badge}
+                  </span>
+                ))
+              ) : (
+                <span className="text-sm font-semibold text-slate-500">Publish content to unlock badges.</span>
+              )}
+            </div>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {badges.length > 0 ? (
-              badges.map((badge) => (
-                <span className="rounded-full bg-amber-50 px-4 py-2 text-sm font-black text-amber-800" key={badge}>
-                  {badge}
-                </span>
-              ))
-            ) : (
-              <span className="text-sm font-semibold text-slate-500">Publish content to unlock badges.</span>
-            )}
-          </div>
-        </div>
 
-        <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
-          <h2 className="text-xl font-black text-slate-950">Your content</h2>
-          <div className="mt-5 grid gap-3">
-            {posts.length > 0 ? (
-              posts.map((post) => (
-                <article className="rounded-[1.5rem] bg-slate-50 p-5" key={post.id}>
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h3 className="text-lg font-black text-slate-950">{post.title}</h3>
-                    <span className={`rounded-full px-3 py-1 text-xs font-black ${
-                      post.status === "published"
-                        ? "bg-emerald-50 text-emerald-700"
-                        : "bg-slate-200 text-slate-600"
-                    }`}>
-                      {post.status}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{post.summary}</p>
-                </article>
-              ))
-            ) : (
-              <p className="rounded-[1.5rem] bg-slate-50 p-5 text-sm font-semibold text-slate-500">
-                No creator posts yet. Start by drafting your first idea.
-              </p>
-            )}
+          <div className="rounded-[2rem] bg-rose-50 p-6 ring-1 ring-rose-100">
+            <Heart className="size-5 text-rose-700" />
+            <h2 className="mt-3 text-xl font-black text-slate-950">Creator ladder</h2>
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
+              More saves, follows, and publishes will unlock creator levels, featured placement, and monetization tools.
+            </p>
+          </div>
+        </aside>
+
+        <div className="grid gap-6">
+          <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-black uppercase text-slate-400">Published Grid</p>
+                <h2 className="mt-1 text-2xl font-black text-slate-950">Your public posts</h2>
+              </div>
+              <a href="/create/">
+                <Button className="gap-2" variant="secondary">
+                  <PenSquare className="size-4" />
+                  New post
+                </Button>
+              </a>
+            </div>
+            <div className="mt-6 columns-1 gap-4 sm:columns-2 xl:columns-3">
+              {published.length > 0 ? (
+                published.map((post, index) => (
+                  <article className="mb-4 break-inside-avoid overflow-hidden rounded-[1.5rem] bg-slate-50" key={post.id}>
+                    {post.media_url ? (
+                      post.media_type === "video" ? (
+                        <video className="max-h-96 w-full object-cover" controls src={post.media_url} />
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img alt="" className="w-full object-cover" src={post.media_url} />
+                      )
+                    ) : (
+                      <div className={`${index % 2 ? "h-56" : "h-40"} bg-gradient-to-br from-rose-100 via-amber-100 to-sky-100`} />
+                    )}
+                    <div className="p-4">
+                      <p className="text-xs font-black uppercase text-slate-400">{getCategoryTitle(post.category_slug)}</p>
+                      <h3 className="mt-2 text-lg font-black leading-tight text-slate-950">{post.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">{post.summary}</p>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <p className="break-inside-avoid rounded-[1.5rem] bg-slate-50 p-5 text-sm font-semibold text-slate-500">
+                  Publish a post to start building your public creator grid.
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <h2 className="text-xl font-black text-slate-950">Drafts</h2>
+            <div className="mt-5 grid gap-3">
+              {drafts.length > 0 ? (
+                drafts.map((post) => (
+                  <article className="rounded-[1.5rem] bg-slate-50 p-5" key={post.id}>
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <h3 className="text-lg font-black text-slate-950">{post.title}</h3>
+                      <span className="rounded-full bg-slate-200 px-3 py-1 text-xs font-black text-slate-600">
+                        draft
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-slate-600">{post.summary || post.body}</p>
+                  </article>
+                ))
+              ) : (
+                <p className="rounded-[1.5rem] bg-slate-50 p-5 text-sm font-semibold text-slate-500">
+                  Drafts you save from the studio appear here.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
