@@ -9,10 +9,13 @@ import {
   FileText,
   ImagePlus,
   LayoutGrid,
+  Layers3,
   PenLine,
   Send,
+  Smartphone,
   Sparkles,
-  Upload
+  Upload,
+  WandSparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/lifeverse";
@@ -33,6 +36,13 @@ type CreatorPost = {
 type PostStyle = "pin" | "story" | "guide" | "video";
 
 const storageKey = "lifeverse-creator-posts";
+const hookIdeas = [
+  "3 things I wish I knew earlier",
+  "Save this before you try it",
+  "A simple idea that actually works",
+  "This changed my routine",
+  "Beginner-friendly breakdown"
+];
 
 function readLocalPosts() {
   if (typeof window === "undefined") {
@@ -175,8 +185,8 @@ export function CreatorStudio() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <section className="min-h-screen bg-[#f7f8fb] px-5 py-8 sm:px-8 sm:py-12">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-normal text-slate-400">
             Creator Studio
@@ -193,8 +203,29 @@ export function CreatorStudio() {
         </a>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+      <div className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="rounded-[2rem] bg-white p-5 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 sm:p-6">
+          <div className="mb-5 rounded-[1.5rem] bg-slate-950 p-4 text-white">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="grid size-11 place-items-center rounded-full bg-white text-slate-950">
+                  <WandSparkles className="size-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-black">Creator Command Center</p>
+                  <p className="text-xs font-bold text-white/45">Build posts people tap, save, share, and follow.</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                {[Layers3, Smartphone, Sparkles].map((Icon, index) => (
+                  <span className="grid size-10 place-items-center rounded-full bg-white/10 ring-1 ring-white/10" key={index}>
+                    <Icon className="size-4 text-white/70" />
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="grid gap-3 sm:grid-cols-4">
             {[
               { icon: ImagePlus, label: "Pin", value: "pin" as const },
@@ -267,6 +298,21 @@ export function CreatorStudio() {
               </label>
 
               <div className="grid gap-4">
+                <div className="rounded-[1.5rem] bg-amber-50 p-4 ring-1 ring-amber-100">
+                  <p className="text-xs font-black uppercase text-amber-700">Hook ideas</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {hookIdeas.map((idea) => (
+                      <button
+                        className="rounded-full bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm ring-1 ring-amber-100 transition hover:bg-slate-950 hover:text-white"
+                        key={idea}
+                        onClick={() => setTitle(idea)}
+                        type="button"
+                      >
+                        {idea}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <label className="grid gap-2 text-sm font-bold text-slate-700">
                   Title
                   <input className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setTitle(event.target.value)} placeholder="A hook people want to tap" value={title} />
@@ -328,6 +374,37 @@ export function CreatorStudio() {
         </div>
 
         <aside className="grid content-start gap-5">
+          <div className="sticky top-28 overflow-hidden rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <div className="mx-auto max-w-[19rem] rounded-[2.25rem] bg-slate-950 p-3 shadow-2xl">
+              <div className="overflow-hidden rounded-[1.7rem] bg-white">
+                <div className="flex items-center gap-2 border-b border-slate-100 p-3">
+                  <div className="size-8 rounded-full bg-slate-950" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-black text-slate-950">Your preview</p>
+                    <p className="truncate text-[0.65rem] font-bold text-slate-400">
+                      {categories.find((category) => category.slug === categorySlug)?.title}
+                    </p>
+                  </div>
+                </div>
+                {mediaUrl ? (
+                  mediaType === "video" ? (
+                    <video className="h-80 w-full object-cover" muted src={mediaUrl} />
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img alt="" className="h-80 w-full object-cover" src={mediaUrl} />
+                  )
+                ) : (
+                  <div className="grid h-80 place-items-center bg-gradient-to-br from-rose-100 via-amber-100 to-sky-100">
+                    <Upload className="size-10 text-white" />
+                  </div>
+                )}
+                <div className="p-4">
+                  <h3 className="text-lg font-black leading-tight text-slate-950">{title || "Your hook appears here"}</h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{summary || "Your caption will preview like a social post."}</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="rounded-[2rem] bg-slate-950 p-6 text-white">
             <Sparkles className="size-5 text-white/45" />
             <h2 className="mt-3 text-xl font-black">Growth loop</h2>

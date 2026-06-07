@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BadgeCheck, Clapperboard, Eye, FileText, Heart, PenSquare, UserPlus } from "lucide-react";
+import { BadgeCheck, Bookmark, Clapperboard, Eye, FileText, Heart, PenSquare, Plus, Sparkles, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/lifeverse";
 
@@ -55,7 +55,8 @@ export function CreatorProfileView() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
+    <section className="min-h-screen bg-[#f7f8fb] px-5 py-8 sm:px-8 sm:py-12">
+      <div className="mx-auto max-w-7xl">
       <div className="overflow-hidden rounded-[2.5rem] bg-slate-950 text-white shadow-[0_28px_90px_rgba(15,23,42,0.18)]">
         <div className="h-48 bg-[radial-gradient(circle_at_12%_18%,rgba(251,191,36,0.48),transparent_30%),radial-gradient(circle_at_86%_10%,rgba(56,189,248,0.36),transparent_32%),linear-gradient(135deg,#0f172a,#4c1d95_45%,#831843)]" />
         <div className="px-7 pb-8 sm:px-10">
@@ -91,6 +92,19 @@ export function CreatorProfileView() {
               </div>
             ))}
           </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {[
+              { icon: PenSquare, label: "Post", href: "/create/" },
+              { icon: Bookmark, label: "Boards", href: "/account/" },
+              { icon: Sparkles, label: "Premium", href: "/premium/" },
+              { icon: Plus, label: "Series", href: "/create/" }
+            ].map((item) => (
+              <a className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm font-black text-white ring-1 ring-white/10 transition hover:bg-white hover:text-slate-950" href={item.href} key={item.label}>
+                <item.icon className="size-4" />
+                {item.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -120,6 +134,16 @@ export function CreatorProfileView() {
             <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
               More saves, follows, and publishes will unlock creator levels, featured placement, and monetization tools.
             </p>
+          </div>
+
+          <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <p className="text-xs font-black uppercase text-slate-400">Next unlock</p>
+            <h2 className="mt-2 text-xl font-black text-slate-950">Influencer tools</h2>
+            <div className="mt-4 grid gap-3 text-sm font-semibold text-slate-600">
+              <p className="rounded-[1.15rem] bg-slate-50 p-3">Creator analytics</p>
+              <p className="rounded-[1.15rem] bg-slate-50 p-3">Follower messaging</p>
+              <p className="rounded-[1.15rem] bg-slate-50 p-3">Paid collections</p>
+            </div>
           </div>
         </aside>
 
@@ -159,9 +183,16 @@ export function CreatorProfileView() {
                   </article>
                 ))
               ) : (
-                <p className="break-inside-avoid rounded-[1.5rem] bg-slate-50 p-5 text-sm font-semibold text-slate-500">
-                  Publish a post to start building your public creator grid.
-                </p>
+                <div className="break-inside-avoid rounded-[1.75rem] bg-gradient-to-br from-amber-50 via-rose-50 to-sky-50 p-6 ring-1 ring-white">
+                  <Clapperboard className="size-8 text-slate-500" />
+                  <h3 className="mt-4 text-2xl font-black text-slate-950">Your grid is waiting.</h3>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
+                    Publish a visual post, guide, or story to make this profile feel alive.
+                  </p>
+                  <a className="mt-5 inline-flex" href="/create/">
+                    <Button>Create first post</Button>
+                  </a>
+                </div>
               )}
             </div>
           </div>
@@ -189,6 +220,7 @@ export function CreatorProfileView() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
