@@ -3,11 +3,11 @@ import { categories } from "@/data/lifeverse";
 
 const links = [
   { label: "Home", href: "/" },
+  { label: "Discover", href: "/trending" },
   { label: "Categories", href: "/categories" },
-  { label: "Trending", href: "/trending" },
   { label: "Premium", href: "/premium" },
   { label: "About", href: "/about" },
-  { label: "Login", href: "/login" }
+  { label: "Account", href: "/login" }
 ];
 const socials = [MessageCircle, Send, Mail, Rss];
 
@@ -20,8 +20,8 @@ export function Footer() {
             LifeVerse
           </a>
           <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500">
-            A clean place to discover simple ideas, practical skills, and inspiring
-            content for everyday life.
+            A visual discovery home for saving useful ideas, following interests,
+            and building personal boards for everyday life.
           </p>
         </div>
         <div>

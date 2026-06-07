@@ -57,8 +57,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {category.title}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              {category.description} Explore focused guides and ideas designed
-              for quick, practical inspiration.
+              {category.description} Save the best ideas, follow the topic, and
+              turn quick inspiration into a useful board.
             </p>
           </div>
           <div className="relative h-[340px] overflow-hidden rounded-[2.5rem] bg-white/60 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
@@ -78,10 +78,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-black uppercase tracking-normal text-slate-400">
-              Starter Guides
+              Save-worthy starts
             </p>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950">
-              Start with these reads.
+              Build your first board from these.
             </h2>
           </div>
           <a className="text-sm font-bold text-slate-500 hover:text-slate-950" href="/categories">

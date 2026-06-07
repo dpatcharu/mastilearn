@@ -10,9 +10,9 @@ export default function CategoriesPage() {
     <main className="min-h-screen bg-white text-slate-950">
       <Header />
       <PageHero
-        description="Browse LifeVerse by the parts of life people actually want to improve: school, work, home, food, celebrations, projects, habits, and play."
+        description="Follow the channels you care about and turn LifeVerse into a more personal feed."
         eyebrow="Categories"
-        title="A calmer way to discover useful ideas."
+        title="Choose your interests."
       />
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

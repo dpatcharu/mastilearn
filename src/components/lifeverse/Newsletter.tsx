@@ -5,9 +5,9 @@ export function Newsletter() {
     <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
       <div className="flex flex-col gap-6 rounded-[2rem] bg-slate-950 p-6 text-white shadow-[0_30px_90px_rgba(15,23,42,0.18)] sm:p-8 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-2xl font-black tracking-tight">Get fresh ideas weekly.</h2>
+          <h2 className="text-2xl font-black tracking-tight">Get the best drops weekly.</h2>
           <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
-            Practical reads for learning, home, food, money, and everyday inspiration.
+            A short email with visual ideas, trending saves, and new premium boards.
           </p>
         </div>
         <form className="flex w-full flex-col gap-3 sm:flex-row lg:max-w-md">

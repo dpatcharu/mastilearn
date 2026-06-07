@@ -8,11 +8,11 @@ export function BusinessModel() {
           Membership
         </p>
         <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-          Free to discover, premium for depth.
+          Free to explore, premium to collect deeper.
         </h2>
         <p className="mt-5 text-lg leading-8 text-slate-500">
-          Start with inspiring everyday reads, then upgrade for deeper guides,
-          templates, and personal collections.
+          Visitors can browse and save the basics. Members get richer boards,
+          templates, and focused packs worth coming back for.
         </p>
       </div>
       <div className="mt-12 grid gap-5 md:grid-cols-3">

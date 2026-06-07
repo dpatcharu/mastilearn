@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Bookmark, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { assetPath } from "@/lib/assetPath";
@@ -25,23 +25,36 @@ export function Hero() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-200/80">
             <Sparkles className="size-4 text-amber-500" />
-            Daily ideas for a better life
+            Visual ideas for life, learning, and fun
           </div>
           <h1 className="max-w-4xl text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-            Learn. Grow. Inspire Every Day.
+            Discover ideas you cannot stop saving.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-            Discover simple ideas, practical skills, and inspiring content to
-            improve your everyday life.
+            LifeVerse brings the best parts of a visual feed, saved boards, and
+            practical guides into one clean place for students, home, food, money,
+            lifestyle, events, DIY, and games.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button className="gap-2 px-7">
-              Explore Now
-              <ArrowRight className="size-4" />
-            </Button>
-            <Button className="px-7" variant="secondary">
-              Join Free
-            </Button>
+            <a href="#discover">
+              <Button className="w-full gap-2 px-7 sm:w-auto">
+                Start exploring
+                <ArrowRight className="size-4" />
+              </Button>
+            </a>
+            <a href="/login">
+              <Button className="w-full px-7 sm:w-auto" variant="secondary">
+                Create free account
+              </Button>
+            </a>
+          </div>
+          <div className="mt-7 flex flex-wrap gap-2 text-sm font-bold text-slate-500">
+            {["For You feed", "Save boards", "Daily drops"].map((item) => (
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 ring-1 ring-slate-200" key={item}>
+                <Bookmark className="size-3.5 text-slate-400" />
+                {item}
+              </span>
+            ))}
           </div>
         </motion.div>
 

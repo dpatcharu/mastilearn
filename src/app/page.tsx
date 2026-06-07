@@ -1,10 +1,12 @@
 import { ArticleCard } from "@/components/lifeverse/ArticleCard";
 import { CategoryCard } from "@/components/lifeverse/CategoryCard";
+import { DiscoveryFeed } from "@/components/lifeverse/DiscoveryFeed";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { Hero } from "@/components/lifeverse/Hero";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
 import { PremiumCTA } from "@/components/lifeverse/PremiumCTA";
+import { SocialFeatures } from "@/components/lifeverse/SocialFeatures";
 import { Stats } from "@/components/lifeverse/Stats";
 import { articles, categories } from "@/data/lifeverse";
 
@@ -14,18 +16,20 @@ export default function Home() {
       <Header />
       <Hero />
       <Stats />
+      <DiscoveryFeed />
+      <SocialFeatures />
 
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20" id="categories">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-black uppercase tracking-normal text-slate-400">
-            Explore Categories
+            Follow Interests
           </p>
           <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-            Choose what makes today better.
+            Pick the channels that shape your feed.
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-500">
-            A thoughtful mix of learning, lifestyle, money, food, events, and
-            playful ideas in one calm place.
+            Readers can follow learning, home, money, food, events, DIY,
+            lifestyle, and games to build a more personal discovery experience.
           </p>
         </div>
 
@@ -44,14 +48,14 @@ export default function Home() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-black uppercase tracking-normal text-slate-400">
-              Popular Reads
+              Trending Saves
             </p>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-              Fresh picks for curious minds.
+              Fresh ideas people are collecting now.
             </h2>
           </div>
           <a className="text-sm font-bold text-slate-500 transition hover:text-slate-950" href="/trending">
-            View all articles
+            View all trends
           </a>
         </div>
 

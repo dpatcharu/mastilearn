@@ -86,7 +86,7 @@ export const categories = [
 
 export const articles = [
   {
-    title: "7 tiny study rituals that make focus feel easier",
+    title: "Study rituals worth saving before your next exam",
     category: "Students",
     slug: "students-corner",
     image: "/images/students-learning.png",
@@ -94,7 +94,7 @@ export const articles = [
     source: "Inspired by Wikimedia learning topics"
   },
   {
-    title: "A calm home corner you can create this weekend",
+    title: "A calm home corner that feels expensive",
     category: "Interior",
     slug: "home-interior",
     image: "/images/home-interior.png",
@@ -102,7 +102,7 @@ export const articles = [
     source: "Original LifeVerse summary"
   },
   {
-    title: "Fresh bowls for busy days without the fuss",
+    title: "Fresh bowls people keep saving for busy days",
     category: "Food",
     slug: "food",
     image: "/images/healthy-food.png",
@@ -110,7 +110,7 @@ export const articles = [
     source: "Recipe data can use TheMealDB"
   },
   {
-    title: "Small celebration details that feel premium",
+    title: "Small celebration details that look premium",
     category: "Events",
     slug: "events",
     image: "/images/events-celebration.png",
@@ -118,12 +118,98 @@ export const articles = [
     source: "Original LifeVerse summary"
   },
   {
-    title: "Business ideas you can validate before spending big",
+    title: "Business ideas you can test this week",
     category: "Money",
     slug: "business-money",
     image: "/images/business-ideas.png",
     time: "7 min read",
     source: "Public-domain/open data friendly"
+  }
+];
+
+export const discoveryPosts = [
+  {
+    title: "Minimal desk setup for deep work",
+    category: "Students",
+    image: "/images/students-learning.png",
+    href: "/categories/students-corner",
+    saves: "18.4k",
+    vibe: "Focus"
+  },
+  {
+    title: "Cozy corner ideas for small rooms",
+    category: "Home",
+    image: "/images/home-interior.png",
+    href: "/categories/home-interior",
+    saves: "22.1k",
+    vibe: "Home"
+  },
+  {
+    title: "Healthy bowl formulas you can repeat",
+    category: "Food",
+    image: "/images/healthy-food.png",
+    href: "/categories/food",
+    saves: "31.7k",
+    vibe: "Fresh"
+  },
+  {
+    title: "Premium party details on a simple budget",
+    category: "Events",
+    image: "/images/events-celebration.png",
+    href: "/categories/events",
+    saves: "12.8k",
+    vibe: "Celebrate"
+  },
+  {
+    title: "Tiny business ideas to validate fast",
+    category: "Money",
+    image: "/images/business-ideas.png",
+    href: "/categories/business-money",
+    saves: "15.2k",
+    vibe: "Build"
+  },
+  {
+    title: "DIY upgrades that make your space feel new",
+    category: "DIY",
+    image: "/images/diy.png",
+    href: "/categories/diy",
+    saves: "9.6k",
+    vibe: "Make"
+  },
+  {
+    title: "Morning routine cards for a cleaner day",
+    category: "Lifestyle",
+    image: "/images/lifestyle.png",
+    href: "/categories/lifestyle",
+    saves: "27.5k",
+    vibe: "Reset"
+  },
+  {
+    title: "Quick games for smarter screen breaks",
+    category: "Games",
+    image: "/images/games.png",
+    href: "/categories/games",
+    saves: "8.9k",
+    vibe: "Play"
+  }
+];
+
+export const socialFeatures = [
+  {
+    title: "For You feed",
+    description: "A visual stream shaped around the categories each reader follows."
+  },
+  {
+    title: "Boards and saves",
+    description: "Readers collect ideas into boards for school, home, food, money, and events."
+  },
+  {
+    title: "Daily drops",
+    description: "Fresh inspiration appears in small daily batches so the site feels alive."
+  },
+  {
+    title: "Premium collections",
+    description: "Paid members unlock deeper guides, templates, and curated idea packs."
   }
 ];
 
@@ -144,37 +230,37 @@ export const categoryGuides = categories.flatMap((category) =>
 );
 
 export const premiumBenefits = [
-  "Deep-dive guides for every category",
+  "Premium boards for every major interest",
   "Printable checklists and templates",
-  "Monthly premium reading collections",
-  "Ad-free browsing and saved favorites",
-  "Early access to new category packs",
-  "Simple action plans for students, homes, and small businesses"
+  "Monthly curated discovery packs",
+  "Ad-free browsing and unlimited saves",
+  "Early access to new category drops",
+  "Action plans for study, home, money, and events"
 ];
 
 export const businessModel = [
   {
-    title: "Free reading",
+    title: "Free discovery",
     description:
-      "Open categories and popular reads help every visitor find useful ideas quickly."
+      "Anyone can browse the visual feed, follow categories, and find useful ideas quickly."
   },
   {
-    title: "Premium tools",
+    title: "Premium collections",
     description:
-      "Members unlock deeper guides, templates, saved collections, and printable action plans."
+      "Members unlock deeper boards, templates, action plans, and cleaner saved collections."
   },
   {
-    title: "Selective partners",
+    title: "Careful partners",
     description:
-      "Carefully chosen recommendations can support the site without crowding the reading experience."
+      "Future recommendations can support the business while keeping the experience calm and useful."
   }
 ];
 
 export const customerFeatures = [
-  "Save favorite reads",
-  "Track learning and lifestyle goals",
-  "Access premium guides",
-  "Manage newsletter and subscription settings"
+  "Save posts into personal boards",
+  "Follow categories for a smarter feed",
+  "Track daily discovery streaks",
+  "Unlock premium collections"
 ];
 
 export const adminFeatures = [
@@ -186,19 +272,19 @@ export const adminFeatures = [
 
 export const editorialPrinciples = [
   {
-    title: "Practical first",
+    title: "Save-worthy",
     description:
-      "Every section is designed around useful ideas readers can understand and apply quickly."
+      "Every section should give readers something they want to keep, revisit, or share."
   },
   {
-    title: "Calm by design",
+    title: "Personal by default",
     description:
-      "The experience favors clean navigation, generous spacing, and focused content over clutter."
+      "Following interests and saving posts should make LifeVerse feel more useful every time."
   },
   {
-    title: "Built to grow",
+    title: "Premium, not noisy",
     description:
-      "LifeVerse can expand into accounts, saved reads, premium resources, and an editor dashboard."
+      "The product can grow into social features and paid collections without becoming cluttered."
   }
 ];
 

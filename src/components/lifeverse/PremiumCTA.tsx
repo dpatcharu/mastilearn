@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { assetPath } from "@/lib/assetPath";
 
-const benefits = ["Exclusive guides", "Ad-free reading", "Premium templates"];
+const benefits = ["Premium boards", "Ad-free browsing", "Downloadable templates"];
 
 export function PremiumCTA() {
   return (
@@ -14,7 +14,7 @@ export function PremiumCTA() {
             LifeVerse Premium
           </p>
           <h2 className="mt-4 max-w-2xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-            Unlock Premium Content
+            Unlock premium collections
           </h2>
           <ul className="mt-7 grid gap-3 text-slate-700 sm:grid-cols-3">
             {benefits.map((benefit) => (
@@ -26,7 +26,9 @@ export function PremiumCTA() {
               </li>
             ))}
           </ul>
-          <Button className="mt-8 px-7">Start 7-Day Free Trial</Button>
+          <a href="/premium">
+            <Button className="mt-8 px-7">Start 7-Day Free Trial</Button>
+          </a>
         </div>
         <div className="relative mx-auto aspect-square w-full max-w-[300px]">
           <Image

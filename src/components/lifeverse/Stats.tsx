@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  ["10k+", "Articles"],
-  ["50+", "Categories"],
-  ["100k+", "Readers"]
+  ["10k+", "Ideas"],
+  ["50+", "Channels"],
+  ["100k+", "Saved posts"]
 ];
 
 export function Stats() {
