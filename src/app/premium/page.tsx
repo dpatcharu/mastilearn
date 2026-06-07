@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { BusinessModel } from "@/components/lifeverse/BusinessModel";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
@@ -15,6 +16,7 @@ export default function PremiumPage() {
         eyebrow="Premium"
         title="Give readers more depth, not more clutter."
       />
+      <BusinessModel />
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {premiumBenefits.map((benefit) => (

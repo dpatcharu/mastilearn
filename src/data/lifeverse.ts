@@ -152,6 +152,38 @@ export const premiumBenefits = [
   "Simple action plans for students, homes, and small businesses"
 ];
 
+export const businessModel = [
+  {
+    title: "Free discovery",
+    description:
+      "Open category pages and starter guides bring readers in through useful everyday content."
+  },
+  {
+    title: "Premium subscription",
+    description:
+      "Readers pay for deeper guides, templates, saved collections, and printable action plans."
+  },
+  {
+    title: "Ethical partnerships",
+    description:
+      "Later, LifeVerse can add carefully selected affiliate or sponsor placements without crowding the reading experience."
+  }
+];
+
+export const customerFeatures = [
+  "Save favorite reads",
+  "Track learning and lifestyle goals",
+  "Access premium guides",
+  "Manage newsletter and subscription settings"
+];
+
+export const adminFeatures = [
+  "Create and edit articles",
+  "Manage categories and featured reads",
+  "Review source attribution",
+  "Prepare premium content packs"
+];
+
 export const editorialPrinciples = [
   {
     title: "Original summaries first",

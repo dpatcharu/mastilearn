@@ -5,7 +5,6 @@ import { Header } from "@/components/lifeverse/Header";
 import { Hero } from "@/components/lifeverse/Hero";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
 import { PremiumCTA } from "@/components/lifeverse/PremiumCTA";
-import { SourcePanel } from "@/components/lifeverse/SourcePanel";
 import { Stats } from "@/components/lifeverse/Stats";
 import { articles, categories } from "@/data/lifeverse";
 
@@ -51,7 +50,7 @@ export default function Home() {
               Fresh picks for curious minds.
             </h2>
           </div>
-          <a className="text-sm font-bold text-slate-500 transition hover:text-slate-950" href="#">
+          <a className="text-sm font-bold text-slate-500 transition hover:text-slate-950" href="/trending">
             View all articles
           </a>
         </div>
@@ -67,7 +66,6 @@ export default function Home() {
         </div>
       </section>
 
-      <SourcePanel />
       <PremiumCTA />
       <Newsletter />
       <Footer />

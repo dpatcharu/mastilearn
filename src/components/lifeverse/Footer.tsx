@@ -6,7 +6,8 @@ const links = [
   { label: "Categories", href: "/categories" },
   { label: "Trending", href: "/trending" },
   { label: "Premium", href: "/premium" },
-  { label: "About", href: "/about" }
+  { label: "About", href: "/about" },
+  { label: "Login", href: "/login" }
 ];
 const socials = [MessageCircle, Send, Mail, Rss];
 

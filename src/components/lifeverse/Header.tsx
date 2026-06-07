@@ -40,7 +40,7 @@ export function Header() {
           >
             <Search className="size-4" />
           </button>
-          <a href="/about">
+          <a href="/login">
             <Button variant="ghost">Login</Button>
           </a>
           <a href="/premium">

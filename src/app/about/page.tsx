@@ -1,8 +1,8 @@
+import { BusinessModel } from "@/components/lifeverse/BusinessModel";
 import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
 import { PageHero } from "@/components/lifeverse/PageHero";
-import { SourcePanel } from "@/components/lifeverse/SourcePanel";
 import { editorialPrinciples } from "@/data/lifeverse";
 
 export default function AboutPage() {
@@ -27,7 +27,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      <SourcePanel />
+      <BusinessModel />
       <Newsletter />
       <Footer />
     </main>

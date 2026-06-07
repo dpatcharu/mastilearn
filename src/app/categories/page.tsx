@@ -3,7 +3,6 @@ import { Footer } from "@/components/lifeverse/Footer";
 import { Header } from "@/components/lifeverse/Header";
 import { Newsletter } from "@/components/lifeverse/Newsletter";
 import { PageHero } from "@/components/lifeverse/PageHero";
-import { SourcePanel } from "@/components/lifeverse/SourcePanel";
 import { categories } from "@/data/lifeverse";
 
 export default function CategoriesPage() {
@@ -26,7 +25,6 @@ export default function CategoriesPage() {
           ))}
         </div>
       </section>
-      <SourcePanel />
       <Newsletter />
       <Footer />
     </main>
