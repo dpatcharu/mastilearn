@@ -11,8 +11,8 @@ export function BusinessModel() {
           Free to explore, premium to collect deeper.
         </h2>
         <p className="mt-5 text-lg leading-8 text-slate-500">
-          Visitors can browse and save the basics. Members get richer boards,
-          templates, and focused packs worth coming back for.
+          Public visitors get a taste. Members and subscribers get more reads,
+          more saves, creator tools, and deeper collections worth paying for.
         </p>
       </div>
       <div className="mt-12 grid gap-5 md:grid-cols-3">

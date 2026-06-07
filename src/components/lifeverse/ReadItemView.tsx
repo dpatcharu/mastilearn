@@ -30,6 +30,9 @@ export function ReadItemView() {
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [isPremium, setIsPremium] = useState(false);
+  const [isLimited, setIsLimited] = useState(false);
+  const [viewsUsed, setViewsUsed] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -85,6 +88,60 @@ export function ReadItemView() {
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (!supabase || !user) {
+      setIsPremium(false);
+      return;
+    }
+
+    supabase
+      .from("profiles")
+      .select("is_premium")
+      .eq("id", user.id)
+      .single()
+      .then(({ data }) => setIsPremium(Boolean(data?.is_premium)));
+  }, [user]);
+
+  useEffect(() => {
+    if (!item || !id || !isReadSource(source) || typeof window === "undefined") {
+      return;
+    }
+
+    if (isPremium) {
+      setIsLimited(false);
+      return;
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    const storageKey = `lifeverse-read-views:${today}:${user ? "member" : "public"}`;
+    const limit = user ? 12 : 3;
+    const currentItem = `${source}:${id}`;
+
+    let views: string[] = [];
+
+    try {
+      views = JSON.parse(window.localStorage.getItem(storageKey) ?? "[]") as string[];
+    } catch {
+      views = [];
+    }
+
+    const uniqueViews = [...new Set(views)];
+
+    if (!uniqueViews.includes(currentItem)) {
+      if (uniqueViews.length >= limit) {
+        setViewsUsed(uniqueViews.length);
+        setIsLimited(true);
+        return;
+      }
+
+      uniqueViews.push(currentItem);
+      window.localStorage.setItem(storageKey, JSON.stringify(uniqueViews));
+    }
+
+    setViewsUsed(uniqueViews.length);
+    setIsLimited(false);
+  }, [id, isPremium, item, source, user]);
+
   async function handleSave() {
     if (!item || !id || !isReadSource(source)) {
       return;
@@ -116,6 +173,7 @@ export function ReadItemView() {
         .slice(0, 6) ?? [],
     [item]
   );
+  const visibleParagraphs = isLimited ? paragraphs.slice(0, 1) : paragraphs;
 
   if (isLoading) {
     return (
@@ -165,12 +223,37 @@ export function ReadItemView() {
           </h1>
 
           <div className="mt-7 grid gap-4 text-lg leading-8 text-slate-600">
-            {paragraphs.length > 0 ? (
-              paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+            {visibleParagraphs.length > 0 ? (
+              visibleParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
             ) : (
               <p>Details are available from the original source.</p>
             )}
           </div>
+
+          {isLimited ? (
+            <div className="mt-7 rounded-[1.75rem] bg-slate-950 p-6 text-white">
+              <p className="text-sm font-black uppercase text-white/45">
+                Free preview limit reached
+              </p>
+              <h2 className="mt-2 text-2xl font-black">Knowledge is valuable.</h2>
+              <p className="mt-3 text-sm leading-6 text-white/65">
+                Public visitors get 3 reads per day. Free members get 12. Premium
+                members get unlimited reading, unlimited saves, and premium boards.
+              </p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <a href="/login/">
+                  <Button className="w-full bg-white text-slate-950 hover:bg-slate-100 sm:w-auto">
+                    Login for more reads
+                  </Button>
+                </a>
+                <a href="/premium/">
+                  <Button className="w-full sm:w-auto" variant="secondary">
+                    Go Premium
+                  </Button>
+                </a>
+              </div>
+            </div>
+          ) : null}
 
           {item.facts.length > 0 ? (
             <div className="mt-8 flex flex-wrap gap-2">
@@ -202,6 +285,11 @@ export function ReadItemView() {
           ) : null}
 
           <p className="mt-6 text-sm leading-6 text-slate-400">{item.attribution}</p>
+          {!isPremium ? (
+            <p className="mt-3 text-xs font-bold uppercase tracking-normal text-slate-400">
+              {user ? `${viewsUsed}/12 member reads used today` : `${viewsUsed}/3 public reads used today`}
+            </p>
+          ) : null}
         </div>
       </div>
     </article>

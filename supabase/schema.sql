@@ -32,6 +32,36 @@ create table if not exists public.content_items (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.creator_posts (
+  id uuid primary key default gen_random_uuid(),
+  author_id uuid not null references auth.users(id) on delete cascade,
+  title text not null,
+  summary text not null,
+  body text not null,
+  category_slug text not null,
+  status text not null default 'draft' check (status in ('draft', 'published')),
+  view_count integer not null default 0,
+  like_count integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.creator_follows (
+  follower_id uuid not null references auth.users(id) on delete cascade,
+  creator_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (follower_id, creator_id),
+  check (follower_id <> creator_id)
+);
+
+create table if not exists public.creator_badges (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  badge text not null,
+  created_at timestamptz not null default now(),
+  unique (user_id, badge)
+);
+
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -59,6 +89,9 @@ for each row execute function public.handle_new_user();
 alter table public.profiles enable row level security;
 alter table public.saved_items enable row level security;
 alter table public.content_items enable row level security;
+alter table public.creator_posts enable row level security;
+alter table public.creator_follows enable row level security;
+alter table public.creator_badges enable row level security;
 
 create policy "Users can read their own profile"
 on public.profiles for select
@@ -93,3 +126,25 @@ with check (
     and profiles.account_type = 'admin'
   )
 );
+
+create policy "Anyone can read published creator posts"
+on public.creator_posts for select
+using (status = 'published');
+
+create policy "Creators can manage their own posts"
+on public.creator_posts for all
+using (auth.uid() = author_id)
+with check (auth.uid() = author_id);
+
+create policy "Users can manage their follows"
+on public.creator_follows for all
+using (auth.uid() = follower_id)
+with check (auth.uid() = follower_id);
+
+create policy "Anyone can read creator badges"
+on public.creator_badges for select
+using (true);
+
+create policy "Users can read their own creator badges"
+on public.creator_badges for select
+using (auth.uid() = user_id);

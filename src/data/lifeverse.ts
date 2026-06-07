@@ -230,10 +230,10 @@ export const categoryGuides = categories.flatMap((category) =>
 );
 
 export const premiumBenefits = [
-  "Premium boards for every major interest",
-  "Printable checklists and templates",
-  "Monthly curated discovery packs",
-  "Ad-free browsing and unlimited saves",
+  "Unlimited reading across LifeVerse",
+  "Unlimited saves and personal boards",
+  "Premium creator tools and templates",
+  "Ad-free browsing and deeper collections",
   "Early access to new category drops",
   "Action plans for study, home, money, and events"
 ];
@@ -242,17 +242,17 @@ export const businessModel = [
   {
     title: "Free discovery",
     description:
-      "Anyone can browse the visual feed, follow categories, and find useful ideas quickly."
+      "Public visitors get limited daily reads so the product can stay valuable."
   },
   {
     title: "Premium collections",
     description:
-      "Members unlock deeper boards, templates, action plans, and cleaner saved collections."
+      "Subscribers unlock unlimited reads, boards, and deeper creator tools."
   },
   {
-    title: "Careful partners",
+    title: "Creator economy",
     description:
-      "Future recommendations can support the business while keeping the experience calm and useful."
+      "Creators can publish original posts, grow followers, and earn badges from engagement."
   }
 ];
 
@@ -260,7 +260,7 @@ export const customerFeatures = [
   "Save posts into personal boards",
   "Follow categories for a smarter feed",
   "Track daily discovery streaks",
-  "Unlock premium collections"
+  "Create drafts and publish original posts"
 ];
 
 export const adminFeatures = [
