@@ -12,9 +12,9 @@ export default function PremiumPage() {
     <main className="min-h-screen bg-white text-slate-950">
       <Header />
       <PageHero
-        description="Premium can become the home for deeper guides, printable resources, templates, and focused plans as LifeVerse grows."
+        description="Go beyond quick inspiration with deeper guides, printable resources, templates, and focused plans."
         eyebrow="Premium"
-        title="Give readers more depth, not more clutter."
+        title="A richer way to learn and plan."
       />
       <BusinessModel />
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">

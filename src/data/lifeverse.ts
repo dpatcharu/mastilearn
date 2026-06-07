@@ -154,19 +154,19 @@ export const premiumBenefits = [
 
 export const businessModel = [
   {
-    title: "Free discovery",
+    title: "Free reading",
     description:
-      "Open category pages and starter guides bring readers in through useful everyday content."
+      "Open categories and popular reads help every visitor find useful ideas quickly."
   },
   {
-    title: "Premium subscription",
+    title: "Premium tools",
     description:
-      "Readers pay for deeper guides, templates, saved collections, and printable action plans."
+      "Members unlock deeper guides, templates, saved collections, and printable action plans."
   },
   {
-    title: "Ethical partnerships",
+    title: "Selective partners",
     description:
-      "Later, LifeVerse can add carefully selected affiliate or sponsor placements without crowding the reading experience."
+      "Carefully chosen recommendations can support the site without crowding the reading experience."
   }
 ];
 
@@ -180,25 +180,25 @@ export const customerFeatures = [
 export const adminFeatures = [
   "Create and edit articles",
   "Manage categories and featured reads",
-  "Review source attribution",
+  "Review editorial details",
   "Prepare premium content packs"
 ];
 
 export const editorialPrinciples = [
   {
-    title: "Original summaries first",
+    title: "Practical first",
     description:
-      "LifeVerse should use external APIs for facts and inspiration, then publish its own concise explanations."
+      "Every section is designed around useful ideas readers can understand and apply quickly."
   },
   {
-    title: "Attribution-ready media",
+    title: "Calm by design",
     description:
-      "When Creative Commons images are used later, every card can carry author, source, and license metadata."
+      "The experience favors clean navigation, generous spacing, and focused content over clutter."
   },
   {
-    title: "Small useful pages",
+    title: "Built to grow",
     description:
-      "Each category should feel practical, calm, and easy to scan instead of becoming a noisy content feed."
+      "LifeVerse can expand into accounts, saved reads, premium resources, and an editor dashboard."
   }
 ];
 

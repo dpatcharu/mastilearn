@@ -37,8 +37,7 @@ export function AuthStatus() {
   if (!isSupabaseConfigured) {
     return (
       <div className="rounded-[1.5rem] bg-amber-50 p-5 text-sm leading-6 text-amber-900">
-        Supabase environment variables are missing, so this preview is not
-        connected to live auth yet.
+        Account access is temporarily unavailable. Please try again shortly.
       </div>
     );
   }
@@ -54,7 +53,7 @@ export function AuthStatus() {
   if (!user) {
     return (
       <div className="rounded-[1.5rem] bg-slate-50 p-5 text-sm leading-6 text-slate-600">
-        No active session. Sign in from the login page to unlock account features.
+        Sign in to manage drafts, categories, and featured content.
       </div>
     );
   }

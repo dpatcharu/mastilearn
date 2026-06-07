@@ -11,13 +11,13 @@ export default function LoginPage() {
     <main className="min-h-screen bg-white text-slate-950">
       <Header />
       <PageHero
-        description="Choose the right entrance. Reader accounts are for customers, while admin access is only for the LifeVerse team."
+        description="Save favorite reads, manage premium access, or enter the workspace for publishing and content management."
         eyebrow="Login"
-        title="One brand, two account paths."
+        title="Welcome back to LifeVerse."
       />
       <section className="mx-auto grid max-w-7xl gap-6 px-5 py-14 sm:px-8 lg:grid-cols-2">
         <AuthCard
-          description="For readers who want saved content, premium resources, and a calmer personal content hub."
+          description="Save reads, manage premium access, and build a personal library of useful ideas."
           eyebrow="Customer"
           title="Reader login"
         >
@@ -37,7 +37,7 @@ export default function LoginPage() {
         </AuthCard>
 
         <AuthCard
-          description="For content managers and owners. Admin access uses Supabase auth and should be limited to approved team accounts."
+          description="Access the publishing workspace for articles, categories, and featured content."
           eyebrow="Admin"
           title="Admin login"
         >
@@ -47,11 +47,10 @@ export default function LoginPage() {
               <ShieldCheck className="size-4" />
               Restricted access
             </div>
-            Admin signups create an account, but dashboard permissions should
-            only be granted after the profile is marked as admin in Supabase.
+            Admin access is reserved for approved LifeVerse team members.
           </div>
           <a className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-slate-950" href="/admin">
-            Open admin preview
+            Open admin workspace
             <ArrowRight className="size-4" />
           </a>
         </AuthCard>

@@ -5,14 +5,14 @@ export function BusinessModel() {
     <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-sm font-black uppercase tracking-normal text-slate-400">
-          Business Model
+          Membership
         </p>
         <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
           Free to discover, premium for depth.
         </h2>
         <p className="mt-5 text-lg leading-8 text-slate-500">
-          LifeVerse should build trust with useful free content, then monetize
-          through premium tools and deeper resources.
+          Start with inspiring everyday reads, then upgrade for deeper guides,
+          templates, and personal collections.
         </p>
       </div>
       <div className="mt-12 grid gap-5 md:grid-cols-3">

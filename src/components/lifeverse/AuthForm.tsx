@@ -20,7 +20,7 @@ export function AuthForm({ role }: AuthFormProps) {
 
   async function handleSignIn() {
     if (!supabase) {
-      setMessage("Supabase is not configured yet.");
+      setMessage("Sign-in is temporarily unavailable. Please try again shortly.");
       return;
     }
 
@@ -38,7 +38,7 @@ export function AuthForm({ role }: AuthFormProps) {
 
   async function handleSignUp() {
     if (!supabase) {
-      setMessage("Supabase is not configured yet.");
+      setMessage("Sign-in is temporarily unavailable. Please try again shortly.");
       return;
     }
 
@@ -68,8 +68,7 @@ export function AuthForm({ role }: AuthFormProps) {
     <div className="mt-7 grid gap-4">
       {!isSupabaseConfigured ? (
         <div className="rounded-[1.25rem] bg-rose-50 p-4 text-sm leading-6 text-rose-900">
-          Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to
-          enable live authentication.
+          Sign-in is temporarily unavailable. Please try again shortly.
         </div>
       ) : null}
       <label className="grid gap-2 text-sm font-semibold text-slate-700">

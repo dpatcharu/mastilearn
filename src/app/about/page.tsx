@@ -10,9 +10,9 @@ export default function AboutPage() {
     <main className="min-h-screen bg-white text-slate-950">
       <Header />
       <PageHero
-        description="LifeVerse is a simple discovery site for practical everyday ideas across learning, money, home, food, events, projects, lifestyle, and games."
+        description="LifeVerse brings practical everyday ideas into one calm place, from learning and money to home, food, events, projects, lifestyle, and games."
         eyebrow="About"
-        title="A useful, calm content home for everyday life."
+        title="Everyday inspiration, made easier to use."
       />
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
         <div className="grid gap-5 md:grid-cols-3">

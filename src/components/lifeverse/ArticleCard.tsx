@@ -5,7 +5,7 @@ type ArticleCardProps = {
   category: string;
   href?: string;
   image: string;
-  source: string;
+  source?: string;
   time: string;
   title: string;
 };
@@ -14,7 +14,6 @@ export function ArticleCard({
   category,
   href = "#",
   image,
-  source,
   time,
   title
 }: ArticleCardProps) {
@@ -40,7 +39,6 @@ export function ArticleCard({
           <span className="text-xs font-semibold text-slate-400">{time}</span>
         </div>
         <h3 className="text-xl font-bold leading-snug text-slate-950">{title}</h3>
-        <p className="mt-4 text-xs font-semibold text-slate-400">{source}</p>
       </div>
     </a>
   );

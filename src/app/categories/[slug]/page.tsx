@@ -57,8 +57,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {category.title}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              {category.description} Start with a few simple guides, then grow this
-              section with open-source data and original LifeVerse summaries.
+              {category.description} Explore focused guides and ideas designed
+              for quick, practical inspiration.
             </p>
           </div>
           <div className="relative h-[340px] overflow-hidden rounded-[2.5rem] bg-white/60 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
@@ -81,7 +81,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               Starter Guides
             </p>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950">
-              Useful reads to build this section.
+              Start with these reads.
             </h2>
           </div>
           <a className="text-sm font-bold text-slate-500 hover:text-slate-950" href="/categories">
