@@ -7,7 +7,7 @@ const links = [
   { label: "Categories", href: "/categories" },
   { label: "Premium", href: "/premium" },
   { label: "About", href: "/about" },
-  { label: "Account", href: "/login" }
+  { label: "Account", href: "/account" }
 ];
 const socials = [MessageCircle, Send, Mail, Rss];
 

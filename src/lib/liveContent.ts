@@ -1,8 +1,11 @@
 export type LiveItem = {
   category: string;
   href: string;
+  id: string;
   image: string;
   meta: string;
+  originalHref: string;
+  source: "book" | "game" | "meal";
   sourceName: string;
   title: string;
 };
@@ -48,6 +51,11 @@ function compactTitle(title: string) {
   return title.length > 70 ? `${title.slice(0, 67)}...` : title;
 }
 
+function readHref(source: LiveItem["source"], id: string) {
+  const params = new URLSearchParams({ id, source });
+  return `/read?${params.toString()}`;
+}
+
 export async function fetchMeals(limit = 6): Promise<LiveItem[]> {
   const response = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Vegetarian");
   if (!response.ok) {
@@ -58,9 +66,12 @@ export async function fetchMeals(limit = 6): Promise<LiveItem[]> {
 
   return (data.meals ?? []).slice(0, limit).map((meal) => ({
     category: "Food",
-    href: `https://www.themealdb.com/meal/${meal.idMeal}`,
+    href: readHref("meal", meal.idMeal),
+    id: meal.idMeal,
     image: meal.strMealThumb,
     meta: "Recipe idea",
+    originalHref: `https://www.themealdb.com/meal/${meal.idMeal}`,
+    source: "meal",
     sourceName: "TheMealDB",
     title: compactTitle(meal.strMeal)
   }));
@@ -89,9 +100,12 @@ export async function fetchBooksForCategory(
     .slice(0, limit)
     .map((book) => ({
       category: config.category,
-      href: `https://openlibrary.org${book.key}`,
+      href: readHref("book", book.key),
+      id: book.key,
       image: `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`,
       meta: book.author_name?.slice(0, 2).join(", ") || "Open Library",
+      originalHref: `https://openlibrary.org${book.key}`,
+      source: "book",
       sourceName: "Open Library",
       title: compactTitle(book.title)
     }));
@@ -107,15 +121,18 @@ export async function fetchGames(limit = 6): Promise<LiveItem[]> {
 
   return data.slice(0, limit).map((game) => ({
     category: "Games",
-    href: game.freetogame_profile_url,
+    href: readHref("game", String(game.id)),
+    id: String(game.id),
     image: game.thumbnail,
     meta: `${game.genre} / ${game.platform}`,
+    originalHref: game.freetogame_profile_url,
+    source: "game",
     sourceName: "FreeToGame",
     title: compactTitle(game.title)
   }));
 }
 
-export async function fetchCategoryItems(slug: string, limit = 9) {
+export async function fetchCategoryItems(slug: string, limit = 18) {
   if (slug === "food") {
     return fetchMeals(limit);
   }

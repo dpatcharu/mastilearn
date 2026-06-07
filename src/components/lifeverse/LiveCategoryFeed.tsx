@@ -25,7 +25,7 @@ export function LiveCategoryFeed({ categoryTitle, slug }: LiveCategoryFeedProps)
       setIsLoading(true);
 
       try {
-        const nextItems = await fetchCategoryItems(slug, 9);
+        const nextItems = await fetchCategoryItems(slug, 18);
 
         if (isMounted) {
           setItems(nextItems);
@@ -81,8 +81,6 @@ export function LiveCategoryFeed({ categoryTitle, slug }: LiveCategoryFeedProps)
               className="group overflow-hidden rounded-[2rem] bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1"
               href={item.href}
               key={`${item.sourceName}-${item.href}`}
-              rel="noreferrer"
-              target="_blank"
             >
               <div className="relative h-64 overflow-hidden bg-slate-100">
                 <img
@@ -105,7 +103,7 @@ export function LiveCategoryFeed({ categoryTitle, slug }: LiveCategoryFeedProps)
                 </div>
                 <h3 className="text-xl font-black leading-snug text-slate-950">{item.title}</h3>
                 <span className="mt-5 inline-flex text-sm font-bold text-slate-500 transition group-hover:text-slate-950">
-                  View original
+                  Read on LifeVerse
                 </span>
               </div>
             </a>

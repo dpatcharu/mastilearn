@@ -43,6 +43,9 @@ export function Header() {
           <a href="/login">
             <Button variant="ghost">Login</Button>
           </a>
+          <a href="/account">
+            <Button variant="secondary">My Board</Button>
+          </a>
           <a href="/premium">
             <Button>Go Premium</Button>
           </a>

@@ -35,7 +35,7 @@ export function AuthForm({ role }: AuthFormProps) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: getAuthRedirectUrl("/login/")
+        redirectTo: getAuthRedirectUrl("/account/")
       }
     });
 
@@ -60,7 +60,12 @@ export function AuthForm({ role }: AuthFormProps) {
     });
 
     setIsLoading(false);
-    setMessage(error ? error.message : "Signed in successfully.");
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    window.location.href = "/account/";
   }
 
   async function handleSignUp() {
@@ -79,7 +84,7 @@ export function AuthForm({ role }: AuthFormProps) {
         data: {
           account_type: role
         },
-        emailRedirectTo: getAuthRedirectUrl("/login/")
+        emailRedirectTo: getAuthRedirectUrl("/account/")
       }
     });
 
