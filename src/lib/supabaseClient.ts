@@ -4,6 +4,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabasePublicKey =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabasePublicKey);
 
@@ -12,6 +13,14 @@ export const supabase = isSupabaseConfigured
   : null;
 
 export function getAuthRedirectUrl(path = "/login/") {
+  const baseUrl =
+    configuredSiteUrl ||
+    (typeof window === "undefined" ? undefined : window.location.origin);
+
+  if (baseUrl) {
+    return new URL(path, baseUrl).toString();
+  }
+
   if (typeof window === "undefined") {
     return path;
   }
