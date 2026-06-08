@@ -185,7 +185,7 @@ export function CreatorStudio() {
   }
 
   return (
-    <section className="min-h-screen bg-[#f7f8fb] px-5 py-8 sm:px-8 sm:py-12">
+    <section className="min-h-screen bg-[#f7f8fb] px-4 pb-28 pt-6 sm:px-8 sm:py-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-normal text-slate-400">
@@ -201,6 +201,19 @@ export function CreatorStudio() {
         <a href="/creator/">
           <Button variant="secondary">View profile</Button>
         </a>
+      </div>
+
+      <div className="mx-auto mt-6 grid max-w-7xl gap-3 sm:grid-cols-3">
+        {[
+          { label: "Drafts", value: draftCount },
+          { label: "Published", value: publishedCount },
+          { label: "Formats", value: 4 }
+        ].map((stat) => (
+          <div className="rounded-[1.5rem] bg-white p-4 shadow-sm ring-1 ring-slate-200/70" key={stat.label}>
+            <p className="text-2xl font-black text-slate-950">{stat.value}</p>
+            <p className="text-xs font-black uppercase text-slate-400">{stat.label}</p>
+          </div>
+        ))}
       </div>
 
       <div className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">
@@ -269,6 +282,9 @@ export function CreatorStudio() {
 
           {mode === "edit" ? (
             <div className="mt-6 grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
+              <div className="rounded-full bg-slate-950 px-4 py-2 text-xs font-black uppercase text-white xl:hidden">
+                Step 1 / Upload
+              </div>
               <label className="grid min-h-96 cursor-pointer place-items-center rounded-[1.75rem] bg-slate-50 p-5 text-center ring-1 ring-slate-200 transition hover:bg-slate-100">
                 <input
                   accept="image/*,video/*"
@@ -298,6 +314,9 @@ export function CreatorStudio() {
               </label>
 
               <div className="grid gap-4">
+                <div className="rounded-full bg-slate-950 px-4 py-2 text-xs font-black uppercase text-white xl:hidden">
+                  Step 2 / Caption
+                </div>
                 <div className="rounded-[1.5rem] bg-amber-50 p-4 ring-1 ring-amber-100">
                   <p className="text-xs font-black uppercase text-amber-700">Hook ideas</p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -319,6 +338,9 @@ export function CreatorStudio() {
                 </label>
                 <label className="grid gap-2 text-sm font-bold text-slate-700">
                   Category
+                  <span className="rounded-full bg-slate-950 px-4 py-2 text-xs font-black uppercase text-white sm:hidden">
+                    Step 3 / Category
+                  </span>
                   <select className="min-h-12 rounded-full bg-slate-50 px-5 outline-none ring-1 ring-slate-200" onChange={(event) => setCategorySlug(event.target.value)} value={categorySlug}>
                     {categories.map((category) => (
                       <option key={category.slug} value={category.slug}>{category.title}</option>
@@ -373,7 +395,7 @@ export function CreatorStudio() {
           {message ? <p className="mt-4 rounded-[1.25rem] bg-emerald-50 p-4 text-sm font-bold text-emerald-800">{message}</p> : null}
         </div>
 
-        <aside className="grid content-start gap-5">
+        <aside className="hidden content-start gap-5 lg:grid">
           <div className="sticky top-28 overflow-hidden rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="mx-auto max-w-[19rem] rounded-[2.25rem] bg-slate-950 p-3 shadow-2xl">
               <div className="overflow-hidden rounded-[1.7rem] bg-white">
@@ -449,6 +471,15 @@ export function CreatorStudio() {
             </div>
           </div>
         </aside>
+      </div>
+
+      <div className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-[1fr_1fr] gap-2 rounded-[1.5rem] bg-slate-950/95 p-2 shadow-[0_20px_70px_rgba(15,23,42,0.35)] backdrop-blur-xl lg:hidden">
+        <Button className="bg-white text-slate-950 hover:bg-slate-100" onClick={() => savePost("draft")} type="button">
+          Save Draft
+        </Button>
+        <Button onClick={() => savePost("published")} type="button">
+          Publish
+        </Button>
       </div>
     </section>
   );

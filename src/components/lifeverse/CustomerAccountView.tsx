@@ -10,21 +10,14 @@ import {
   Compass,
   Crown,
   Edit3,
-  Flame,
   Grid3X3,
-  Heart,
   Home,
   ImagePlus,
-  LogOut,
-  MessageCircle,
-  MoreHorizontal,
   PlaySquare,
   Plus,
   RefreshCw,
   Search,
-  Send,
   Sparkles,
-  UserPlus,
   Users,
   Zap
 } from "lucide-react";
@@ -97,6 +90,38 @@ function Avatar({ initials, src, className = "size-11" }: { className?: string; 
       ) : (
         initials
       )}
+    </div>
+  );
+}
+
+function FeedMasonry({ feedItems }: { feedItems: LiveItem[] }) {
+  const heights = ["h-72", "h-96", "h-80", "h-64", "h-[22rem]", "h-72"];
+
+  return (
+    <div className="columns-2 gap-3 md:columns-2 lg:columns-3 lg:gap-5">
+      {feedItems.slice(0, 12).map((item, index) => (
+        <article
+          className="mb-3 break-inside-avoid overflow-hidden rounded-[1.35rem] bg-white shadow-[0_16px_45px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-xl lg:mb-5 lg:rounded-[1.75rem]"
+          key={item.href}
+        >
+          <a className="block" href={item.href}>
+            <div className={`relative ${heights[index % heights.length]} overflow-hidden bg-slate-100`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img alt="" className="absolute inset-0 size-full object-cover" src={item.image} />
+              <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[0.65rem] font-black uppercase text-slate-950 shadow-sm backdrop-blur">
+                {item.category}
+              </span>
+              <button className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-white/90 text-slate-950 shadow-sm backdrop-blur lg:size-10" type="button">
+                <Bookmark className="size-4" />
+              </button>
+            </div>
+          </a>
+          <div className="p-3 lg:p-4">
+            <h3 className="text-sm font-black leading-tight text-slate-950 lg:text-base">{item.title}</h3>
+            <p className="mt-2 text-[0.68rem] font-bold uppercase text-slate-400">{item.sourceName}</p>
+          </div>
+        </article>
+      ))}
     </div>
   );
 }
@@ -260,8 +285,11 @@ export function CustomerAccountView() {
 
   return (
     <section className="min-h-screen bg-[#f7f8fb] pb-28 lg:pb-12">
-      <div className="sticky top-20 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+      <div className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl lg:top-20">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-8">
+          <a className="text-xl font-black tracking-tight text-slate-950 lg:hidden" href="/home/">
+            LifeVerse
+          </a>
           <Avatar initials={initials} src={profile.avatar_url} />
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-black text-slate-950">{displayName}</p>
@@ -280,8 +308,8 @@ export function CustomerAccountView() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[17rem_minmax(0,1fr)_18rem]">
-        <aside className="hidden content-start gap-5 lg:grid">
+      <div className="mx-auto grid max-w-7xl gap-6 px-3 py-4 sm:px-6 md:px-8 lg:grid-cols-[17rem_minmax(0,1fr)_18rem] lg:py-6 xl:grid-cols-[18rem_minmax(0,1fr)_20rem]">
+        <aside className="hidden content-start gap-5 lg:sticky lg:top-40 lg:grid lg:self-start">
           <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="h-24 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.6),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(56,189,248,0.42),transparent_30%),linear-gradient(135deg,#111827,#4c1d95,#831843)]" />
             <div className="-mt-9 px-5 pb-5">
@@ -401,52 +429,7 @@ export function CustomerAccountView() {
                 </button>
               ))}
             </div>
-            {feedItems.slice(0, 5).map((item, index) => (
-              <article className="overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_70px_rgba(15,23,42,0.09)] ring-1 ring-slate-200/70" key={item.href}>
-                <div className="flex items-center gap-3 p-4">
-                  <Avatar initials={item.category.slice(0, 2).toUpperCase()} />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-black text-slate-950">{item.category}</p>
-                    <p className="truncate text-xs font-bold text-slate-400">via {item.sourceName}</p>
-                  </div>
-                  <button className="grid size-10 place-items-center rounded-full bg-slate-50 text-slate-500" type="button">
-                    <MoreHorizontal className="size-5" />
-                  </button>
-                </div>
-                <a href={item.href}>
-                  <div className={`relative grid ${index % 2 === 0 ? "h-[28rem]" : "h-80"} place-items-end overflow-hidden bg-slate-100`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img alt="" className="absolute inset-0 size-full object-cover" src={item.image} />
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_55%,rgba(15,23,42,0.72))]" />
-                    <div className="relative p-6 text-white">
-                      <p className="mb-2 inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-black uppercase backdrop-blur">
-                        {item.category}
-                      </p>
-                      <h2 className="max-w-xl text-3xl font-black leading-tight tracking-tight">{item.title}</h2>
-                    </div>
-                  </div>
-                </a>
-                <div className="p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex gap-2">
-                      {[Heart, MessageCircle, Send].map((Icon, iconIndex) => (
-                        <button className="grid size-11 place-items-center rounded-full bg-slate-50 text-slate-700 transition hover:bg-slate-950 hover:text-white" type="button" key={iconIndex}>
-                          <Icon className="size-5" />
-                        </button>
-                      ))}
-                    </div>
-                    <button className="grid size-11 place-items-center rounded-full bg-slate-50 text-slate-700 transition hover:bg-slate-950 hover:text-white" type="button">
-                      <Bookmark className="size-5" />
-                    </button>
-                  </div>
-                  <p className="mt-3 text-sm font-black text-slate-950">{1200 + index * 384} saves</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-600">
-                    <span className="font-black text-slate-950">@{item.category.toLowerCase().replace(/[^a-z0-9]+/g, "_")}</span>{" "}
-                    {item.meta}
-                  </p>
-                </div>
-              </article>
-            ))}
+            <FeedMasonry feedItems={feedItems} />
           </div>
 
           <div className="mt-5 rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
@@ -485,7 +468,7 @@ export function CustomerAccountView() {
           </div>
         </main>
 
-        <aside className="hidden content-start gap-5 xl:grid">
+        <aside className="hidden content-start gap-5 xl:sticky xl:top-40 xl:grid xl:self-start">
           <div className="rounded-[2rem] bg-slate-950 p-5 text-white shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
             <div className="flex items-center gap-3">
               <Zap className="size-5 text-amber-300" />
@@ -534,7 +517,6 @@ export function CustomerAccountView() {
           </div>
         </aside>
       </div>
-
       <MobileBottomNav />
     </section>
   );

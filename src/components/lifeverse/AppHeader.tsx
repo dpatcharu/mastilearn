@@ -4,7 +4,7 @@ import { Bell, Plus, Search } from "lucide-react";
 
 export function AppHeader() {
   return (
-    <div className="sticky top-20 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+    <div className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-8">
         <a className="text-xl font-black tracking-tight text-slate-950" href="/home/">
           LifeVerse

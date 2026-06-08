@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { BadgeCheck, Bookmark, Clapperboard, Eye, FileText, Heart, PenSquare, Plus, Sparkles, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/lifeverse";
+import { MobileBottomNav } from "./MobileBottomNav";
 import { SavedBoardsCarousel } from "./SavedBoardsCarousel";
 
 type CreatorPost = {
@@ -58,17 +59,17 @@ export function CreatorProfileView() {
   return (
     <section className="min-h-screen bg-[#f7f8fb] px-5 py-8 sm:px-8 sm:py-12">
       <div className="mx-auto max-w-7xl">
-      <div className="overflow-hidden rounded-[2.5rem] bg-slate-950 text-white shadow-[0_28px_90px_rgba(15,23,42,0.18)]">
-        <div className="h-48 bg-[radial-gradient(circle_at_12%_18%,rgba(251,191,36,0.48),transparent_30%),radial-gradient(circle_at_86%_10%,rgba(56,189,248,0.36),transparent_32%),linear-gradient(135deg,#0f172a,#4c1d95_45%,#831843)]" />
-        <div className="px-7 pb-8 sm:px-10">
-          <div className="-mt-16 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-              <div className="grid size-32 place-items-center rounded-[2rem] border-4 border-slate-950 bg-white text-4xl font-black text-slate-950 shadow-2xl">
+      <div className="overflow-hidden rounded-[2rem] bg-slate-950 text-center text-white shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:rounded-[2.5rem] sm:text-left">
+        <div className="h-32 bg-[radial-gradient(circle_at_12%_18%,rgba(251,191,36,0.48),transparent_30%),radial-gradient(circle_at_86%_10%,rgba(56,189,248,0.36),transparent_32%),linear-gradient(135deg,#0f172a,#4c1d95_45%,#831843)] sm:h-48" />
+        <div className="px-5 pb-6 sm:px-10 sm:pb-8">
+          <div className="-mt-14 flex flex-col items-center gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-end">
+              <div className="grid size-28 place-items-center rounded-[2rem] border-4 border-slate-950 bg-white text-4xl font-black text-slate-950 shadow-2xl sm:size-32">
                 LV
               </div>
               <div>
                 <p className="text-sm font-black uppercase text-white/45">Creator Profile</p>
-                <h1 className="mt-2 text-5xl font-black tracking-tight">Your influence hub.</h1>
+                <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">Your influence hub.</h1>
                 <p className="mt-3 max-w-2xl leading-7 text-white/65">
                   Your posts, drafts, badges, followers, and creative momentum in one place.
                 </p>
@@ -79,17 +80,17 @@ export function CreatorProfileView() {
             </a>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-4">
+          <div className="mt-8 grid grid-cols-4 gap-2 sm:mt-10 sm:gap-4">
             {[
               { label: "Published", value: published.length, icon: Eye },
               { label: "Drafts", value: drafts.length, icon: FileText },
               { label: "Visuals", value: visualPosts, icon: Clapperboard },
               { label: "Followers", value: 0, icon: UserPlus }
             ].map((stat) => (
-              <div className="rounded-[1.5rem] bg-white/[0.06] p-5 ring-1 ring-white/10" key={stat.label}>
+              <div className="rounded-[1.15rem] bg-white/[0.06] p-3 ring-1 ring-white/10 sm:rounded-[1.5rem] sm:p-5" key={stat.label}>
                 <stat.icon className="size-5 text-white/45" />
-                <p className="mt-4 text-4xl font-black">{stat.value}</p>
-                <p className="mt-1 text-sm font-bold text-white/45">{stat.label}</p>
+                <p className="mt-3 text-2xl font-black sm:mt-4 sm:text-4xl">{stat.value}</p>
+                <p className="mt-1 text-[0.65rem] font-bold text-white/45 sm:text-sm">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -106,7 +107,7 @@ export function CreatorProfileView() {
               </a>
             ))}
           </div>
-          <div className="mt-6 grid rounded-full bg-white/10 p-1 sm:grid-cols-4">
+          <div className="sticky top-0 z-20 mt-6 grid rounded-full bg-white/10 p-1 backdrop-blur sm:grid-cols-4">
             {["Posts", "Boards", "Saved", "Premium"].map((tab, index) => (
               <button
                 className={`min-h-11 rounded-full px-4 text-sm font-black transition ${
@@ -123,7 +124,7 @@ export function CreatorProfileView() {
       </div>
 
       <div className="mt-8 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
-        <aside className="grid content-start gap-6">
+        <aside className="hidden content-start gap-6 lg:grid">
           <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="flex items-center gap-3">
               <BadgeCheck className="size-5 text-slate-400" />
@@ -179,7 +180,7 @@ export function CreatorProfileView() {
                 </Button>
               </a>
             </div>
-            <div className="mt-6 columns-1 gap-4 sm:columns-2 xl:columns-3">
+            <div className="mt-6 columns-2 gap-3 xl:columns-3 xl:gap-4">
               {published.length > 0 ? (
                 published.map((post, index) => (
                   <article className="mb-4 break-inside-avoid overflow-hidden rounded-[1.5rem] bg-slate-50" key={post.id}>
@@ -240,6 +241,7 @@ export function CreatorProfileView() {
         </div>
       </div>
       </div>
+      <MobileBottomNav />
     </section>
   );
 }
