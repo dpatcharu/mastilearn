@@ -31,6 +31,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { fetchHomeItems, type LiveItem } from "@/lib/liveContent";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
+import { CategoryCarousel } from "./CategoryCarousel";
+import { MobileBottomNav } from "./MobileBottomNav";
+import { SavedBoardsCarousel } from "./SavedBoardsCarousel";
+import { StoryCarousel } from "./StoryCarousel";
 
 type SavedItem = {
   category_slug: string;
@@ -325,26 +329,9 @@ export function CustomerAccountView() {
           </nav>
         </aside>
 
-        <main className="min-w-0">
-          <div className="overflow-x-auto rounded-[1.75rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.07)] ring-1 ring-slate-200/70">
-            <div className="flex min-w-max gap-4">
-              <a className="grid w-20 gap-2 text-center" href="/create/">
-                <div className="grid size-16 place-items-center rounded-full bg-slate-950 text-white ring-4 ring-white shadow-lg">
-                  <Plus className="size-6" />
-                </div>
-                <span className="text-xs font-black text-slate-700">Create</span>
-              </a>
-              {storyRail.map((story) => (
-                <button className="grid w-20 gap-2 text-center" key={story.label} type="button">
-                  <span className={`grid size-16 place-items-center rounded-full bg-gradient-to-br ${story.tone} p-1 shadow-lg`}>
-                    <span className="grid size-full place-items-center rounded-full bg-white text-lg font-black text-slate-950">
-                      {story.label.slice(0, 1)}
-                    </span>
-                  </span>
-                  <span className="text-xs font-black text-slate-700">{story.label}</span>
-                </button>
-              ))}
-            </div>
+        <main className="min-w-0 max-w-full">
+          <div className="rounded-[1.75rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.07)] ring-1 ring-slate-200/70">
+            <StoryCarousel />
           </div>
 
           <div className="mt-5 rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
@@ -362,6 +349,10 @@ export function CustomerAccountView() {
                 </a>
               ))}
             </div>
+          </div>
+
+          <div className="mt-5 rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <CategoryCarousel />
           </div>
 
           {isEditing ? (
@@ -397,6 +388,19 @@ export function CustomerAccountView() {
           ) : null}
 
           <div className="mt-5 grid gap-5">
+            <div className="sticky top-36 z-20 flex gap-2 rounded-full bg-white/85 p-1 shadow-sm ring-1 ring-slate-200/70 backdrop-blur">
+              {["For You", "Following", "Trending"].map((tab, index) => (
+                <button
+                  className={`min-h-11 flex-1 rounded-full px-4 text-sm font-black transition ${
+                    index === 0 ? "bg-slate-950 text-white" : "text-slate-500 hover:bg-slate-100 hover:text-slate-950"
+                  }`}
+                  key={tab}
+                  type="button"
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
             {feedItems.slice(0, 5).map((item, index) => (
               <article className="overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_70px_rgba(15,23,42,0.09)] ring-1 ring-slate-200/70" key={item.href}>
                 <div className="flex items-center gap-3 p-4">
@@ -475,6 +479,10 @@ export function CustomerAccountView() {
               )}
             </div>
           </div>
+
+          <div className="mt-5 rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <SavedBoardsCarousel title="Boards" />
+          </div>
         </main>
 
         <aside className="hidden content-start gap-5 xl:grid">
@@ -527,20 +535,7 @@ export function CustomerAccountView() {
         </aside>
       </div>
 
-      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-5 rounded-[1.5rem] bg-slate-950/95 p-2 text-white shadow-[0_20px_70px_rgba(15,23,42,0.35)] backdrop-blur-xl lg:hidden">
-        {[
-          { icon: Home, label: "Home", href: "/account/" },
-          { icon: Search, label: "Search", href: "/trending/" },
-          { icon: Plus, label: "Create", href: "/create/" },
-          { icon: Bookmark, label: "Saved", href: "/account/" },
-          { icon: Users, label: "Me", href: "/creator/" }
-        ].map((item, index) => (
-          <a className={`grid place-items-center gap-1 rounded-[1rem] py-2 text-[0.68rem] font-black ${index === 2 ? "bg-white text-slate-950" : "text-white/70"}`} href={item.href} key={item.label}>
-            <item.icon className="size-5" />
-            {item.label}
-          </a>
-        ))}
-      </nav>
+      <MobileBottomNav />
     </section>
   );
 }

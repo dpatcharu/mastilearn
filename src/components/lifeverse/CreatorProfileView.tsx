@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { BadgeCheck, Bookmark, Clapperboard, Eye, FileText, Heart, PenSquare, Plus, Sparkles, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/lifeverse";
+import { SavedBoardsCarousel } from "./SavedBoardsCarousel";
 
 type CreatorPost = {
   body: string;
@@ -105,10 +106,23 @@ export function CreatorProfileView() {
               </a>
             ))}
           </div>
+          <div className="mt-6 grid rounded-full bg-white/10 p-1 sm:grid-cols-4">
+            {["Posts", "Boards", "Saved", "Premium"].map((tab, index) => (
+              <button
+                className={`min-h-11 rounded-full px-4 text-sm font-black transition ${
+                  index === 0 ? "bg-white text-slate-950" : "text-white/60 hover:bg-white/10 hover:text-white"
+                }`}
+                key={tab}
+                type="button"
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
+      <div className="mt-8 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
         <aside className="grid content-start gap-6">
           <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="flex items-center gap-3">
@@ -147,7 +161,11 @@ export function CreatorProfileView() {
           </div>
         </aside>
 
-        <div className="grid gap-6">
+        <div className="grid min-w-0 gap-6">
+          <div className="min-w-0 max-w-full overflow-hidden rounded-[2rem] bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
+            <SavedBoardsCarousel title="Boards" />
+          </div>
+
           <div className="rounded-[2rem] bg-white p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
