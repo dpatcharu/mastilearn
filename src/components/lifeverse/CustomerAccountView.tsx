@@ -308,7 +308,7 @@ export function CustomerAccountView() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-3 py-4 sm:px-6 md:px-8 lg:grid-cols-[17rem_minmax(0,1fr)_18rem] lg:py-6 xl:grid-cols-[18rem_minmax(0,1fr)_20rem]">
+      <div className="mx-auto grid max-w-7xl gap-5 px-3 py-4 sm:px-6 md:px-8 lg:grid-cols-[13rem_minmax(0,1fr)_14rem] lg:py-6 xl:grid-cols-[18rem_minmax(0,1fr)_20rem]">
         <aside className="hidden content-start gap-5 lg:sticky lg:top-40 lg:grid lg:self-start">
           <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70">
             <div className="h-24 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.6),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(56,189,248,0.42),transparent_30%),linear-gradient(135deg,#111827,#4c1d95,#831843)]" />
@@ -468,7 +468,7 @@ export function CustomerAccountView() {
           </div>
         </main>
 
-        <aside className="hidden content-start gap-5 xl:sticky xl:top-40 xl:grid xl:self-start">
+        <aside className="hidden content-start gap-5 lg:sticky lg:top-40 lg:grid lg:self-start">
           <div className="rounded-[2rem] bg-slate-950 p-5 text-white shadow-[0_18px_55px_rgba(15,23,42,0.12)]">
             <div className="flex items-center gap-3">
               <Zap className="size-5 text-amber-300" />
@@ -497,7 +497,7 @@ export function CustomerAccountView() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-black text-slate-950">{creator.name}</p>
-                    <p className="truncate text-xs font-bold text-slate-400">@{creator.handle} · {creator.growth}</p>
+                    <p className="truncate text-xs font-bold text-slate-400">@{creator.handle} - {creator.growth}</p>
                   </div>
                   <Button className="h-9 px-4 text-xs" type="button" variant="secondary">Follow</Button>
                 </div>
